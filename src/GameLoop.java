@@ -15,7 +15,6 @@ public class GameLoop implements Runnable {
         running = true;
 
         long last = System.nanoTime();
-        double fpsDelta = 0;
         double upsDelta = 0;
         long timer = 0;
         int upsCounter = 0;
@@ -23,7 +22,7 @@ public class GameLoop implements Runnable {
 
         while (running) {
             long now = System.nanoTime();
-//            fpsDelta += (now - last) / updateRate;
+            boolean isUpdate = false;
             upsDelta += (now - last) / updateRate;
             timer += now - last;
             last = now;
@@ -32,10 +31,14 @@ public class GameLoop implements Runnable {
                 update();
                 upsCounter++;
                 upsDelta--;
+                isUpdate = true;
             }
 
-            render();
-            fpsCounter++;
+            if (isUpdate) {
+                render();
+                fpsCounter++;
+            }
+
 
             if (timer >= NANO_SECONDS) {
                 System.out.printf("FPS: %d, UPS: %d\n", fpsCounter, upsCounter);
