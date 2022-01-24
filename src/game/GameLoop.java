@@ -1,3 +1,5 @@
+package game;
+
 public class GameLoop implements Runnable {
     private final long NANO_SECONDS = 1000000000;
     private final int FPS = 60;

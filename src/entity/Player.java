@@ -1,3 +1,8 @@
+package entity;
+
+import controller.Controller;
+import core.Position;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;

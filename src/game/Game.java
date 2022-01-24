@@ -1,3 +1,11 @@
+package game;
+
+import controller.PlayerController;
+import display.Display;
+import entity.GameObject;
+import entity.Player;
+import input.Input;
+
 import java.util.ArrayList;
 import java.util.List;
 
