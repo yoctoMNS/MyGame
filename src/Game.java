@@ -4,11 +4,13 @@ import java.util.List;
 public class Game {
     private Display display;
     private List<GameObject> gameObjects;
+    private Input input;
 
     public Game(int width, int height) {
-        this.display = new Display(width, height);
+        this.input = new Input();
+        this.display = new Display(width, height, input);
         this.gameObjects = new ArrayList<>();
-        this.gameObjects.add(new Square());
+        this.gameObjects.add(new Player(new PlayerController(input)));
     }
 
     public void update() {
