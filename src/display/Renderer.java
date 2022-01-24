@@ -10,8 +10,6 @@ public class Renderer {
                 gameObject.getSprite(),
                 gameObject.getPosition().getX(),
                 gameObject.getPosition().getY(),
-                gameObject.getSize().getWidth(),
-                gameObject.getSize().getHeight(),
                 null
         ));
     }
