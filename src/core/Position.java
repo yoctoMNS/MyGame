@@ -17,7 +17,7 @@ public class Position {
         return (int)Math.round(y);
     }
 
-    public void apply(Movement movement) {
+    public void apply(Motion movement) {
         Vector2D v = movement.getVector();
         x += v.x;
         y += v.y;
