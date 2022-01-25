@@ -9,10 +9,10 @@ import gfx.SpriteLibrary;
 import java.awt.Image;
 
 public abstract class MovingEntity extends GameObject {
-    private Controller controller;
-    private Motion motion;
-    private AnimationManager animationManager;
-    private Direction direction;
+    protected Controller controller;
+    protected Motion motion;
+    protected AnimationManager animationManager;
+    protected Direction direction;
 
     public MovingEntity(Controller controller, SpriteLibrary spriteLibrary) {
         super();
@@ -20,7 +20,7 @@ public abstract class MovingEntity extends GameObject {
         this.controller = controller;
         this.motion = new Motion(2);
         this.direction = Direction.S;
-        this.animationManager = new AnimationManager(spriteLibrary.getUnit("dave"));
+        this.animationManager = new AnimationManager(spriteLibrary.getUnit("matt"));
     }
 
     @Override
