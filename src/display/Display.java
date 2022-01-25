@@ -1,6 +1,6 @@
 package display;
 
-import game.Game;
+import game.state.State;
 import input.Input;
 
 import javax.swing.JFrame;
@@ -34,14 +34,14 @@ public class Display extends JFrame {
         setVisible(true);
     }
 
-    public void render(Game game) {
+    public void render(State state) {
         BufferStrategy bufferStrategy = canvas.getBufferStrategy();
         Graphics graphics = bufferStrategy.getDrawGraphics();
 
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        renderer.render(game, graphics);
+        renderer.render(state, graphics);
 
         graphics.dispose();
         bufferStrategy.show();
