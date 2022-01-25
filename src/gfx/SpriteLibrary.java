@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SpriteLibrary {
-    private final static String PATH_TO_UNITS = "/sprites/units";
     private Map<String, SpriteSet> units;
     private Map<String, Image> tiles;
 
@@ -24,26 +23,28 @@ public class SpriteLibrary {
     }
 
     private void loadSpritesFromDisk() {
-        loadUnits();
-        loadTiles();
+        loadUnits("/sprites/units");
+        loadTiles("/sprites/tiles");
     }
 
-    private void loadTiles() {
-        BufferedImage image = new BufferedImage(Game.SPRITE_SIZE, Game.SPRITE_SIZE, BufferedImage.TYPE_INT_RGB);
-        Graphics2D graphics2D = image.createGraphics();
-        graphics2D.setColor(Color.RED);
-        graphics2D.drawRect(0, 0, Game.SPRITE_SIZE, Game.SPRITE_SIZE);
-        graphics2D.dispose();
-        tiles.put("default", image);
+    private void loadTiles(String path) {
+        String[] imagesInFolder = getImagesInFolder(path);
+
+        for (String fileName : imagesInFolder) {
+            tiles.put(
+                    fileName.substring(0, fileName.length() - 4),
+                    ImageUtils.loadImage(path + "/" + fileName)
+            );
+        }
     }
 
-    private void loadUnits() {
-        String[] folderNames = getFolderNames(PATH_TO_UNITS);
+    private void loadUnits(String path) {
+        String[] folderNames = getFolderNames(path);
 
         for (String folderName : folderNames) {
             SpriteSet spriteSet = new SpriteSet();
-            String pathToFolder = PATH_TO_UNITS + "/" + folderName;
-            String[] sheetsInFolder = getSheetsInFolder(pathToFolder);
+            String pathToFolder = path + "/" + folderName;
+            String[] sheetsInFolder = getImagesInFolder(pathToFolder);
 
             for (String sheetName : sheetsInFolder) {
                 spriteSet.addSheet(
@@ -55,7 +56,7 @@ public class SpriteLibrary {
         }
     }
 
-    private String[] getSheetsInFolder(String basePath) {
+    private String[] getImagesInFolder(String basePath) {
         URL resource = SpriteLibrary.class.getResource(basePath);
         File file = new File(resource.getFile());
         return file.list((current, name) -> new File(current, name).isFile());
