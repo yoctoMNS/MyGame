@@ -1,12 +1,10 @@
 package game;
 
+import core.Size;
 import display.Display;
-import entity.GameObject;
 import game.state.GameState;
 import game.state.State;
 import input.Input;
-
-import java.util.List;
 
 public class Game {
     public static int SPRITE_SIZE = 64;
@@ -18,7 +16,7 @@ public class Game {
     public Game(int width, int height) {
         this.input = new Input();
         this.display = new Display(width, height, input);
-        this.state = new GameState(input);
+        this.state = new GameState(new Size(width, height), input);
     }
 
     public void update() {
