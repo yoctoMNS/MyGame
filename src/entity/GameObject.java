@@ -2,7 +2,9 @@ package entity;
 
 import core.Position;
 import core.Size;
+import game.state.State;
 
+import javax.swing.text.StyledEditorKit;
 import java.awt.Image;
 
 public abstract class GameObject {
@@ -19,7 +21,7 @@ public abstract class GameObject {
         this.size = size;
     }
 
-    public abstract void update();
+    public abstract void update(State state);
 
     public abstract Image getSprite();
 

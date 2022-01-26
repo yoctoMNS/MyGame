@@ -3,6 +3,7 @@ package game.state;
 import core.Size;
 import display.Camera;
 import entity.GameObject;
+import game.Time;
 import gfx.SpriteLibrary;
 import input.Input;
 import map.GameMap;
@@ -17,17 +18,19 @@ public abstract class State {
     protected SpriteLibrary spriteLibrary;
     protected Input input;
     protected Camera camera;
+    protected Time time;
 
     public State(Size windowSize, Input input) {
         this.gameObjects = new ArrayList<>();
         this.spriteLibrary = new SpriteLibrary();
         this.input = input;
         this.camera = new Camera(windowSize);
+        this.time = new Time();
     }
 
     public void update() {
         sortObjectByPosition();
-        gameObjects.forEach(gameObject -> gameObject.update());
+        gameObjects.forEach(gameObject -> gameObject.update(this));
         camera.update(this);
     }
 
@@ -45,5 +48,9 @@ public abstract class State {
 
     public Camera getCamera() {
         return camera;
+    }
+
+    public Time getTime() {
+        return time;
     }
 }

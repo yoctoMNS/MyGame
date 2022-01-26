@@ -1,8 +1,9 @@
 package game;
 
 public class GameLoop implements Runnable {
-    private final long NANO_SECONDS = 1000000000;
-    private final int FPS = 60;
+    public static final int UPDATES_PER_SECOND = 60;
+    private static final long NANO_SECONDS = 1000000000;
+    private static final int FPS = 60;
 
     private Game game;
     private boolean running;
