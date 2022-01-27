@@ -2,15 +2,11 @@ package game.state;
 
 import controller.NPCController;
 import controller.PlayerController;
-import core.Position;
 import core.Size;
 import entity.NPC;
 import entity.Player;
-import game.Game;
 import input.Input;
 import map.GameMap;
-
-import java.util.List;
 
 public class GameState extends State {
     public GameState(Size windowSize, Input input) {
@@ -21,10 +17,18 @@ public class GameState extends State {
 
     private void initializeCharacters() {
         Player player = new Player(new PlayerController(input), spriteLibrary);
-        NPC npc = new NPC(new NPCController(), spriteLibrary);
-        npc.setPosition(new Position(3 * Game.SPRITE_SIZE, 2 * Game.SPRITE_SIZE));
 
-        this.gameObjects.addAll(List.of(player, npc));
-        camera.focusOn(npc);
+        this.gameObjects.add(player);
+        camera.focusOn(player);
+
+        initializeNPCs(200);
+    }
+
+    private void initializeNPCs(int numberOfNPCs) {
+        for (int i = 0; i < numberOfNPCs; i++) {
+            NPC npc = new NPC(new NPCController(), spriteLibrary);
+            npc.setPosition(gameMap.getRandomPosition());
+            gameObjects.add(npc);
+        }
     }
 }
