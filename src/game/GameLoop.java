@@ -37,11 +37,10 @@ public class GameLoop implements Runnable {
                 isUpdate = true;
             }
 
-//            if (isUpdate) {
-//            }
-            render();
-            fpsCounter++;
-
+            if (isUpdate) {
+                render();
+                fpsCounter++;
+            }
 
             if (timer >= NANO_SECONDS) {
                 System.out.printf("FPS: %d, UPS: %d\n", fpsCounter, upsCounter);

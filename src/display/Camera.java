@@ -3,13 +3,14 @@ package display;
 import core.Position;
 import core.Size;
 import entity.GameObject;
+import game.Game;
 import game.state.State;
-import map.GameMap;
 
 import java.awt.Rectangle;
 import java.util.Optional;
 
 public class Camera {
+    private static final int SAFETY_SPACE = 2 * Game.SPRITE_SIZE;
     private Position position;
     private Size windowSize;
     private Rectangle viewBounds;
@@ -23,7 +24,12 @@ public class Camera {
     }
 
     private void calculateViewBounds() {
-        viewBounds = new Rectangle(position.getX(), position.getY(), windowSize.w, windowSize.h);
+        viewBounds = new Rectangle(
+                position.getX(),
+                position.getY(),
+                windowSize.w + SAFETY_SPACE,
+                windowSize.h + SAFETY_SPACE
+        );
     }
 
     public void focusOn(GameObject object) {
