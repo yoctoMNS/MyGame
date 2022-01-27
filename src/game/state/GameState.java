@@ -25,6 +25,6 @@ public class GameState extends State {
         npc.setPosition(new Position(3 * Game.SPRITE_SIZE, 2 * Game.SPRITE_SIZE));
 
         this.gameObjects.addAll(List.of(player, npc));
-        camera.focusOn(player);
+        camera.focusOn(npc);
     }
 }
