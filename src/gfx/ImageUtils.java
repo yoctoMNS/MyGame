@@ -4,7 +4,6 @@ import core.Size;
 
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
-import java.awt.GraphicsConfigTemplate;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
