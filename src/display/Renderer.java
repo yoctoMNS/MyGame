@@ -4,22 +4,35 @@ import core.Position;
 import game.Game;
 import game.state.State;
 import map.GameMap;
-import map.Tile;
 
 import java.awt.Graphics;
 
 public class Renderer {
     public void render(State state, Graphics graphics) {
         renderMap(state, graphics);
+        renderGameObjects(state, graphics);
+        renderUI(state, graphics);
+    }
+
+    private void renderUI(State state, Graphics graphics) {
+        state.getUiContainers().forEach(uiContainer -> graphics.drawImage(
+                uiContainer.getSprite(),
+                uiContainer.getPosition().getX(),
+                uiContainer.getPosition().getY(),
+                null
+        ));
+    }
+
+    private void renderGameObjects(State state, Graphics graphics) {
         Camera camera = state.getCamera();
 
         state.getGameObjects().stream().filter(gameObject -> camera.isInView(gameObject))
                 .forEach(gameObject -> graphics.drawImage(
-                gameObject.getSprite(),
-                gameObject.getPosition().getX() - camera.getPosition().getX() - gameObject.getSize().w / 2,
-                gameObject.getPosition().getY() - camera.getPosition().getY() - gameObject.getSize().h / 2,
-                null
-        ));
+                        gameObject.getSprite(),
+                        gameObject.getPosition().getX() - camera.getPosition().getX() - gameObject.getSize().w / 2,
+                        gameObject.getPosition().getY() - camera.getPosition().getY() - gameObject.getSize().h / 2,
+                        null
+                ));
     }
 
     private void renderMap(State state, Graphics graphics) {

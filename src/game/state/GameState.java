@@ -5,16 +5,25 @@ import controller.PlayerController;
 import core.Size;
 import entity.NPC;
 import entity.Player;
-import entity.action.Cough;
 import entity.effect.Sick;
 import input.Input;
 import map.GameMap;
+import map.ui.Spacing;
+import map.ui.UIContainer;
 
 public class GameState extends State {
     public GameState(Size windowSize, Input input) {
         super(windowSize, input);
         this.gameMap = new GameMap(new Size(20, 20), spriteLibrary);
         initializeCharacters();
+        initializeUI();
+    }
+
+    private void initializeUI() {
+        UIContainer container = new UIContainer();
+        container.setPadding(new Spacing(50));
+        container.setMargin(new Spacing(10));
+        uiContainers.add(container);
     }
 
     private void initializeCharacters() {

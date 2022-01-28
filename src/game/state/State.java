@@ -8,6 +8,7 @@ import game.Time;
 import gfx.SpriteLibrary;
 import input.Input;
 import map.GameMap;
+import map.ui.UIContainer;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 public abstract class State {
     protected GameMap gameMap;
     protected List<GameObject> gameObjects;
+    protected List<UIContainer> uiContainers;
     protected SpriteLibrary spriteLibrary;
     protected Input input;
     protected Camera camera;
@@ -24,6 +26,7 @@ public abstract class State {
 
     public State(Size windowSize, Input input) {
         this.gameObjects = new ArrayList<>();
+        this.uiContainers = new ArrayList<>();
         this.spriteLibrary = new SpriteLibrary();
         this.input = input;
         this.camera = new Camera(windowSize);
@@ -33,6 +36,7 @@ public abstract class State {
     public void update() {
         sortObjectByPosition();
         gameObjects.forEach(gameObject -> gameObject.update(this));
+        uiContainers.forEach(uiContainer -> uiContainer.update(this));
         camera.update(this);
     }
 
@@ -64,5 +68,9 @@ public abstract class State {
         return gameObjects.stream()
                 .filter(other -> other.collidesWith(gameObject))
                 .collect(Collectors.toList());
+    }
+
+    public List<UIContainer> getUiContainers() {
+        return uiContainers;
     }
 }
