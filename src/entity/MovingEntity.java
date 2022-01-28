@@ -1,6 +1,7 @@
 package entity;
 
 import controller.Controller;
+import core.CollisionBox;
 import core.Direction;
 import core.Motion;
 import entity.action.Action;
@@ -10,6 +11,7 @@ import gfx.AnimationManager;
 import gfx.SpriteLibrary;
 
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -41,12 +43,19 @@ public abstract class MovingEntity extends GameObject {
         animationManager.update(direction);
         effects.forEach(effect -> effect.update(state, this));
 
+        handleCollisions(state);
         managerDirection();
         decideAnimation();
 
         position.apply(motion);
         cleanUp();
     }
+
+    private void handleCollisions(State state) {
+        state.getCollidingGameObjects(this).forEach(this::handleCollision);
+    }
+
+    protected abstract void handleCollision(GameObject other);
 
     private void handleMotion() {
         if (!action.isPresent()) {
@@ -90,6 +99,11 @@ public abstract class MovingEntity extends GameObject {
     }
 
     @Override
+    public boolean collidesWith(GameObject other) {
+        return getCollisionBox().collidesWith(other.getCollisionBox());
+    }
+
+    @Override
     public Image getSprite() {
         return animationManager.getSprite();
     }
@@ -108,5 +122,21 @@ public abstract class MovingEntity extends GameObject {
 
     public void addEffect(Effect effect) {
         effects.add(effect);
+    }
+
+    @Override
+    public CollisionBox getCollisionBox() {
+        return new CollisionBox(
+                new Rectangle(
+                        position.getX(),
+                        position.getY(),
+                        size.w,
+                        size.h
+                )
+        );
+    }
+
+    protected void clearEffects() {
+        effects.clear();
     }
 }
