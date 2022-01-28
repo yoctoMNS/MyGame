@@ -44,7 +44,10 @@ public class Motion {
         vector.multiply(multiplier);
     }
 
-    public void stop() {
-        vector = new Vector2D(0, 0);
+    public void stop(boolean stopX, boolean stopY) {
+        vector = new Vector2D(
+                stopX ? 0 : vector.x,
+                stopY ? 0 : vector.y
+        );
     }
 }

@@ -16,6 +16,15 @@ public class Position {
         this.y = y;
     }
 
+    public Position(Position position) {
+        this.x = position.x;
+        this.y = position.y;
+    }
+
+    public static Position copyOf(Position position) {
+        return new Position(position);
+    }
+
     public int getX() {
         return (int)Math.round(x);
     }
@@ -32,5 +41,13 @@ public class Position {
 
     public boolean isInRangeOf(Position position) {
         return Math.abs(x - position.x) < Position.PROXIMITY_RANGE && Math.abs(y - position.y) < Position.PROXIMITY_RANGE;
+    }
+
+    public void applyX(Motion motion) {
+        x += motion.getVector().x;
+    }
+
+    public void applyY(Motion motion) {
+        y += motion.getVector().y;
     }
 }
