@@ -12,4 +12,8 @@ public class CollisionBox {
     public boolean collidesWith(CollisionBox other) {
         return bounds.intersects(other.bounds);
     }
+
+    public Rectangle getBounds() {
+        return bounds;
+    }
 }
