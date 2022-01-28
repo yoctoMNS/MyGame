@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 public class AnimationManager {
     private SpriteSet spriteSet;
+    private String currentAnimationName;
     private BufferedImage currentAnimationSheet;
     private int currentFrameTime;
     private int updatesPerFrame;
@@ -20,6 +21,7 @@ public class AnimationManager {
         this.updatesPerFrame = 20;
         this.frameIndex = 0;
         this.directionIndex = 0;
+        this.currentAnimationName = "";
         playAnimation("stand");
     }
 
@@ -47,6 +49,10 @@ public class AnimationManager {
     }
 
     public void playAnimation(String name) {
-        currentAnimationSheet = (BufferedImage)spriteSet.get(name);
+        if (!name.equals(currentAnimationName)) {
+            currentAnimationSheet = (BufferedImage)spriteSet.get(name);
+            currentAnimationName = name;
+            frameIndex = 0;
+        }
     }
 }

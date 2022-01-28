@@ -3,15 +3,16 @@ package entity;
 import controller.Controller;
 import core.Direction;
 import core.Motion;
+import entity.action.Action;
 import entity.effect.Effect;
 import game.state.State;
 import gfx.AnimationManager;
 import gfx.SpriteLibrary;
 
 import java.awt.Image;
-import java.nio.file.FileAlreadyExistsException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public abstract class MovingEntity extends GameObject {
     protected Controller controller;
@@ -19,6 +20,7 @@ public abstract class MovingEntity extends GameObject {
     protected AnimationManager animationManager;
     protected Direction direction;
     protected List<Effect> effects;
+    protected Optional<Action> action;
 
     public MovingEntity(Controller controller, SpriteLibrary spriteLibrary) {
         super();
@@ -28,11 +30,14 @@ public abstract class MovingEntity extends GameObject {
         this.direction = Direction.S;
         this.animationManager = new AnimationManager(spriteLibrary.getUnit("matt"));
         this.effects = new ArrayList<>();
+        this.action = Optional.empty();
     }
 
     @Override
     public void update(State state) {
-        motion.update(controller);
+        handleAction(state);
+        handleMotion();
+
         animationManager.update(direction);
         effects.forEach(effect -> effect.update(state, this));
 
@@ -43,18 +48,39 @@ public abstract class MovingEntity extends GameObject {
         cleanUp();
     }
 
+    private void handleMotion() {
+        if (!action.isPresent()) {
+            motion.update(controller);
+        } else {
+            motion.stop();
+        }
+    }
+
+    private void handleAction(State state) {
+        if (action.isPresent()) {
+            action.get().update(state, this);
+        }
+    }
+
     private void cleanUp() {
         List.copyOf(effects).stream()
                 .filter(Effect::shouldDelete)
                 .forEach(effects::remove);
+
+        if (action.isPresent() && action.get().isDone()) {
+            action = Optional.empty();
+        }
     }
 
     private void decideAnimation() {
-        if (motion.isMoving()) {
+        if (action.isPresent()) {
+            animationManager.playAnimation(action.get().getAnimationName());
+        } else if (motion.isMoving()) {
             animationManager.playAnimation("walk");
         } else {
             animationManager.playAnimation("stand");
         }
+
     }
 
     private void managerDirection() {
@@ -74,5 +100,13 @@ public abstract class MovingEntity extends GameObject {
 
     public void multiplySpeed(double multiplier) {
         motion.multiply(multiplier);
+    }
+
+    public void perform(Action action) {
+        this.action = Optional.of(action);
+    }
+
+    public void addEffect(Effect effect) {
+        effects.add(effect);
     }
 }
