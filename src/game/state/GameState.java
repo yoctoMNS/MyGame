@@ -8,8 +8,12 @@ import entity.Player;
 import entity.effect.Sick;
 import input.Input;
 import map.GameMap;
+import map.ui.HorizontalContainer;
 import map.ui.Spacing;
 import map.ui.UIContainer;
+import map.ui.VerticalContainer;
+
+import java.awt.Color;
 
 public class GameState extends State {
     public GameState(Size windowSize, Input input) {
@@ -20,9 +24,12 @@ public class GameState extends State {
     }
 
     private void initializeUI() {
-        UIContainer container = new UIContainer();
-        container.setPadding(new Spacing(50));
-        container.setMargin(new Spacing(10));
+        UIContainer container = new VerticalContainer();
+        container.setPadding(new Spacing(20));
+        container.getBackgroundColor(Color.GRAY);
+        container.addUIComponent(new HorizontalContainer());
+        container.addUIComponent(new HorizontalContainer());
+        container.addUIComponent(new HorizontalContainer());
         uiContainers.add(container);
     }
 

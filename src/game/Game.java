@@ -19,7 +19,7 @@ public class Game {
         this.input = new Input();
         this.display = new Display(width, height, input);
         this.state = new GameState(new Size(width, height), input);
-        this.settings = new GameSettings(true);
+        this.settings = new GameSettings(false);
     }
 
     public void update() {
