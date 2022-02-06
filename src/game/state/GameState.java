@@ -11,6 +11,7 @@ import map.GameMap;
 import map.ui.HorizontalContainer;
 import map.ui.Spacing;
 import map.ui.UIContainer;
+import map.ui.UIText;
 import map.ui.VerticalContainer;
 
 import java.awt.Color;
@@ -25,11 +26,9 @@ public class GameState extends State {
 
     private void initializeUI() {
         UIContainer container = new VerticalContainer();
-        container.setPadding(new Spacing(20));
-        container.getBackgroundColor(Color.GRAY);
-        container.addUIComponent(new HorizontalContainer());
-        container.addUIComponent(new HorizontalContainer());
-        container.addUIComponent(new HorizontalContainer());
+        container.setPadding(new Spacing(5));
+        container.getBackgroundColor(Color.LIGHT_GRAY);
+        container.addUIComponent(new UIText("こんにちは世界"));
         uiContainers.add(container);
     }
 

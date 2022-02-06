@@ -21,6 +21,7 @@ public abstract class UIContainer extends UIComponent {
 
         this.backgroundColor = Color.RED;
         this.margin = new Spacing(5);
+        this.padding = new Spacing(5);
         this.children = new ArrayList<>();
 
         calculateSize();
