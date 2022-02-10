@@ -8,7 +8,7 @@ import entity.Player;
 import entity.effect.Sick;
 import input.Input;
 import map.GameMap;
-import map.ui.HorizontalContainer;
+import map.ui.Alignment;
 import map.ui.Spacing;
 import map.ui.UIContainer;
 import map.ui.UIText;
@@ -21,15 +21,23 @@ public class GameState extends State {
         super(windowSize, input);
         this.gameMap = new GameMap(new Size(20, 20), spriteLibrary);
         initializeCharacters();
-        initializeUI();
+        initializeUI(windowSize);
     }
 
-    private void initializeUI() {
-        UIContainer container = new VerticalContainer();
+    private void initializeUI(Size windowSize) {
+        UIContainer container = new VerticalContainer(windowSize);
         container.setPadding(new Spacing(5));
-        container.getBackgroundColor(Color.LIGHT_GRAY);
-        container.addUIComponent(new UIText("こんにちは世界"));
+        container.getBackgroundColor(new Color(0, 0, 0, 0));
+
+        UIContainer containerEnd = new VerticalContainer(windowSize);
+        containerEnd.setPadding(new Spacing(5));
+        containerEnd.getBackgroundColor(new Color(0, 0, 0, 0));
+        containerEnd.setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER));
+
+        containerEnd.addUIComponent(new UIText("Good bye!"));
+
         uiContainers.add(container);
+        uiContainers.add(containerEnd);
     }
 
     private void initializeCharacters() {
