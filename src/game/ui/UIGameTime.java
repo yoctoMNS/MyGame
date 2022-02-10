@@ -1,0 +1,25 @@
+package game.ui;
+
+import core.Size;
+import game.state.State;
+import map.ui.Alignment;
+import map.ui.HorizontalContainer;
+import map.ui.UIText;
+
+public class UIGameTime extends HorizontalContainer {
+    private UIText gameTime;
+
+    public UIGameTime(Size windowSize) {
+        super(windowSize);
+
+        this.alignment = new Alignment(Alignment.Position.CENTER, Alignment.Position.START);
+        this.gameTime = new UIText("00:00");
+        addUIComponent(gameTime);
+    }
+
+    @Override
+    public void update(State state) {
+        super.update(state);
+        gameTime.setText(state.getTime().getFormattedTime());
+    }
+}

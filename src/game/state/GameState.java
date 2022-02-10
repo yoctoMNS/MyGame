@@ -6,15 +6,9 @@ import core.Size;
 import entity.NPC;
 import entity.Player;
 import entity.effect.Sick;
+import game.ui.UIGameTime;
 import input.Input;
 import map.GameMap;
-import map.ui.Alignment;
-import map.ui.Spacing;
-import map.ui.UIContainer;
-import map.ui.UIText;
-import map.ui.VerticalContainer;
-
-import java.awt.Color;
 
 public class GameState extends State {
     public GameState(Size windowSize, Input input) {
@@ -25,19 +19,7 @@ public class GameState extends State {
     }
 
     private void initializeUI(Size windowSize) {
-        UIContainer container = new VerticalContainer(windowSize);
-        container.setPadding(new Spacing(5));
-        container.getBackgroundColor(new Color(0, 0, 0, 0));
-
-        UIContainer containerEnd = new VerticalContainer(windowSize);
-        containerEnd.setPadding(new Spacing(5));
-        containerEnd.getBackgroundColor(new Color(0, 0, 0, 0));
-        containerEnd.setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER));
-
-        containerEnd.addUIComponent(new UIText("Good bye!"));
-
-        uiContainers.add(container);
-        uiContainers.add(containerEnd);
+        uiContainers.add(new UIGameTime(windowSize));
     }
 
     private void initializeCharacters() {

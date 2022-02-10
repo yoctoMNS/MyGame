@@ -34,6 +34,7 @@ public abstract class State {
     }
 
     public void update() {
+        time.update();
         sortObjectByPosition();
         gameObjects.forEach(gameObject -> gameObject.update(this));
         uiContainers.forEach(uiContainer -> uiContainer.update(this));
