@@ -8,6 +8,7 @@ import core.Position;
 import core.Size;
 import entity.action.Action;
 import entity.effect.Effect;
+import entity.effect.Sick;
 import game.state.State;
 import gfx.AnimationManager;
 import gfx.SpriteLibrary;
@@ -161,5 +162,10 @@ public abstract class MovingEntity extends GameObject {
         positionWithYApplied.applyY(motion);
 
         return CollisionBox.of(positionWithYApplied, collisionBoxSize).collidesWith(otherBox);
+    }
+
+    public boolean isAffectedBy(Class<?> clazz) {
+        return effects.stream()
+                .anyMatch(effect -> clazz.isInstance(effect));
     }
 }
