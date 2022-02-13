@@ -103,11 +103,6 @@ public abstract class MovingEntity extends GameObject {
     }
 
     @Override
-    public boolean collidesWith(GameObject other) {
-        return getCollisionBox().collidesWith(other.getCollisionBox());
-    }
-
-    @Override
     public Image getSprite() {
         return animationManager.getSprite();
     }

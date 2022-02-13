@@ -50,4 +50,9 @@ public class Position {
     public void applyY(Motion motion) {
         y += motion.getVector().y;
     }
+
+    public void add(Position position) {
+        x += position.x;
+        y += position.y;
+    }
 }

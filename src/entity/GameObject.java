@@ -5,11 +5,13 @@ import core.Position;
 import core.Size;
 import game.state.State;
 
+import javax.management.remote.rmi.RMIIIOPServerImpl;
 import java.awt.Image;
 
 public abstract class GameObject {
     protected Position position;
     protected Size size;
+    protected GameObject parent;
 
     public GameObject() {
         this.position = new Position(50, 50);
@@ -27,10 +29,18 @@ public abstract class GameObject {
 
     public abstract CollisionBox getCollisionBox();
 
-    public abstract boolean collidesWith(GameObject other);
+    public boolean collidesWith(GameObject other) {
+        return getCollisionBox().collidesWith(other.getCollisionBox());
+    }
 
     public Position getPosition() {
-        return position;
+        Position finalPosition = Position.copyOf(position);
+
+        if (parent != null) {
+            finalPosition.add(parent.position);
+        }
+
+        return finalPosition;
     }
 
     public void setPosition(Position position) {
@@ -39,5 +49,9 @@ public abstract class GameObject {
 
     public Size getSize() {
         return size;
+    }
+
+    public void setParent(GameObject parent) {
+        this.parent = parent;
     }
 }
