@@ -26,7 +26,7 @@ public class GameLoop implements Runnable {
         while (running) {
             long now = System.nanoTime();
             boolean isUpdate = false;
-            upsDelta += (now - last) / updateRate;
+            upsDelta += ((now - last) / updateRate) * game.getSettings().getGameSpeedMultiplier();
             timer += now - last;
             last = now;
 

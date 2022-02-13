@@ -1,6 +1,6 @@
 package core;
 
-import controller.Controller;
+import controller.EntityController;
 
 public class Motion {
     private Vector2D vector;
@@ -11,19 +11,19 @@ public class Motion {
         this.vector = new Vector2D(0, 0);
     }
 
-    public void update(Controller controller) {
+    public void update(EntityController entityController) {
         int deltaX = 0, deltaY = 0;
 
-        if (controller.isRequestiongUp()) {
+        if (entityController.isRequestiongUp()) {
             deltaY--;
         }
-        if (controller.isRequestiongDown()) {
+        if (entityController.isRequestiongDown()) {
             deltaY++;
         }
-        if (controller.isRequestiongLeft()) {
+        if (entityController.isRequestiongLeft()) {
             deltaX--;
         }
-        if (controller.isRequestiongRight()) {
+        if (entityController.isRequestiongRight()) {
             deltaX++;
         }
 
