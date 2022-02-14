@@ -55,4 +55,16 @@ public class Position {
         x += position.x;
         y += position.y;
     }
+
+    public void subtract(Position position) {
+        x -= position.x;
+        y -= position.y;
+    }
+
+    public double distanceTo(Position other) {
+        double deltaX = x - other.x;
+        double deltaY = y - other.y;
+
+        return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    }
 }
