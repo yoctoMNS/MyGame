@@ -37,6 +37,7 @@ public abstract class MovingEntity extends GameObject {
         this.effects = new ArrayList<>();
         this.action = Optional.empty();
         this.collisionBoxSize = new Size(16, 28);
+        this.renderOffset = new Position(size.w / 2, size.h - 12);
     }
 
     @Override
@@ -125,13 +126,13 @@ public abstract class MovingEntity extends GameObject {
 
     @Override
     public CollisionBox getCollisionBox() {
-        Position positionWithMotion = Position.copyOf(position);
+        Position positionWithMotion = Position.copyOf(getPosition());
         positionWithMotion.apply(motion);
 
         return new CollisionBox(
                 new Rectangle(
-                        positionWithMotion.getX(),
-                        positionWithMotion.getY(),
+                        positionWithMotion.getX() - collisionBoxSize.w / 2,
+                        positionWithMotion.getY() - collisionBoxSize.h,
                         collisionBoxSize.w,
                         collisionBoxSize.h
                 )

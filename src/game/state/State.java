@@ -42,7 +42,7 @@ public abstract class State {
     }
 
     private void sortObjectByPosition() {
-        gameObjects.sort(Comparator.comparing(gameObject -> gameObject.getPosition().y));
+        gameObjects.sort(Comparator.comparing(GameObject::getRenderOrder).thenComparing(gameObject -> gameObject.getPosition().getY()));
     }
 
     public List<GameObject> getGameObjects() {
