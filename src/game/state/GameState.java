@@ -6,7 +6,7 @@ import core.Size;
 import entity.NPC;
 import entity.Player;
 import entity.SelectionCircle;
-import entity.effect.Sick;
+import entity.humanoid.effect.Sick;
 import game.ui.UIGameTime;
 import game.ui.UISicknessStatistics;
 import input.Input;

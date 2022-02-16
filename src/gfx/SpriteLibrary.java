@@ -1,44 +1,40 @@
 package gfx;
 
-import game.Game;
-
-import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SpriteLibrary {
-    private Map<String, SpriteSet> units;
-    private Map<String, Image> tiles;
+    private Map<String, SpriteSet> spriteSets;
+    private Map<String, Image> images;
 
     public SpriteLibrary() {
-        this.units = new HashMap<>();
-        this.tiles = new HashMap<>();
+        this.spriteSets = new HashMap<>();
+        this.images = new HashMap<>();
 
         loadSpritesFromDisk();
     }
 
     private void loadSpritesFromDisk() {
-        loadUnits("/sprites/units");
-        loadTiles("/sprites/tiles");
+        loadSpriteSets("/sprites/units");
+        loadImages("/sprites/tiles");
+        loadImages("/sprites/effects");
     }
 
-    private void loadTiles(String path) {
+    private void loadImages(String path) {
         String[] imagesInFolder = getImagesInFolder(path);
 
         for (String fileName : imagesInFolder) {
-            tiles.put(
+            images.put(
                     fileName.substring(0, fileName.length() - 4),
                     ImageUtils.loadImage(path + "/" + fileName)
             );
         }
     }
 
-    private void loadUnits(String path) {
+    private void loadSpriteSets(String path) {
         String[] folderNames = getFolderNames(path);
 
         for (String folderName : folderNames) {
@@ -52,7 +48,7 @@ public class SpriteLibrary {
                         ImageUtils.loadImage(pathToFolder + "/" + sheetName));
             }
 
-            units.put(folderName, spriteSet);
+            spriteSets.put(folderName, spriteSet);
         }
     }
 
@@ -68,11 +64,11 @@ public class SpriteLibrary {
         return file.list((current, name) -> new File(current, name).isDirectory());
     }
 
-    public SpriteSet getUnit(String name) {
-        return units.get(name);
+    public SpriteSet getSpriteSet(String name) {
+        return spriteSets.get(name);
     }
 
-    public Image getTile(String name) {
-        return tiles.get(name);
+    public Image getImage(String name) {
+        return images.get(name);
     }
 }

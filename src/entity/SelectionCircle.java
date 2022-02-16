@@ -6,6 +6,7 @@ import core.Size;
 import game.state.State;
 import gfx.ImageUtils;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -16,8 +17,8 @@ public class SelectionCircle extends GameObject{
     private BufferedImage sprite;
 
     public SelectionCircle() {
-        this.color = Color.ORANGE;
-        this.size = new Size(32, 16);
+        this.color = new Color(0, 255, 255);
+        this.size = new Size(20, 16);
         this.renderOffset = new Position(size.w / 2, size.h);
         this.collisionBoxOffset = renderOffset;
         this.renderOrder = 4;
@@ -30,7 +31,8 @@ public class SelectionCircle extends GameObject{
         Graphics2D graphics = sprite.createGraphics();
 
         graphics.setColor(color);
-        graphics.fillOval(0, 0, size.w, size.h);
+        graphics.setStroke(new BasicStroke(2));
+        graphics.drawOval(0, 0, size.w, size.h);
 
         graphics.dispose();
     }
