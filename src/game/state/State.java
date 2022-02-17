@@ -4,6 +4,7 @@ import core.Position;
 import core.Size;
 import display.Camera;
 import entity.GameObject;
+import entity.humanoid.Bubble;
 import game.Time;
 import gfx.SpriteLibrary;
 import input.Input;
@@ -36,9 +37,15 @@ public abstract class State {
     public void update() {
         time.update();
         sortObjectByPosition();
-        gameObjects.forEach(gameObject -> gameObject.update(this));
+        updateGameObjects();
         uiContainers.forEach(uiContainer -> uiContainer.update(this));
         camera.update(this);
+    }
+
+    private void updateGameObjects() {
+        for (int i = 0; i < gameObjects.size(); i++ ) {
+            gameObjects.get(i).update(this);
+        }
     }
 
     private void sortObjectByPosition() {
@@ -80,5 +87,13 @@ public abstract class State {
                 .filter(clazz::isInstance)
                 .map(gameObject -> (T)gameObject)
                 .collect(Collectors.toList());
+    }
+
+    public SpriteLibrary getSpriteLibrary() {
+        return spriteLibrary;
+    }
+
+    public void spawn(GameObject gameObject) {
+        gameObjects.add(gameObject);
     }
 }

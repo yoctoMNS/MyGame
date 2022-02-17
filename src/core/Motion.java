@@ -14,16 +14,16 @@ public class Motion {
     public void update(EntityController entityController) {
         int deltaX = 0, deltaY = 0;
 
-        if (entityController.isRequestiongUp()) {
+        if (entityController.isRequestingUp()) {
             deltaY--;
         }
-        if (entityController.isRequestiongDown()) {
+        if (entityController.isRequestingDown()) {
             deltaY++;
         }
-        if (entityController.isRequestiongLeft()) {
+        if (entityController.isRequestingLeft()) {
             deltaX--;
         }
-        if (entityController.isRequestiongRight()) {
+        if (entityController.isRequestingRight()) {
             deltaX++;
         }
 

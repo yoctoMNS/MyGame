@@ -9,23 +9,28 @@ public class NPCController implements EntityController {
     private boolean right;
 
     @Override
-    public boolean isRequestiongUp() {
+    public boolean isRequestingUp() {
         return up;
     }
 
     @Override
-    public boolean isRequestiongDown() {
+    public boolean isRequestingDown() {
         return down;
     }
 
     @Override
-    public boolean isRequestiongLeft() {
+    public boolean isRequestingLeft() {
         return left;
     }
 
     @Override
-    public boolean isRequestiongRight() {
+    public boolean isRequestingRight() {
         return right;
+    }
+
+    @Override
+    public boolean isRequestingAction() {
+        return false;
     }
 
     public void moveToTarget(Position target, Position current) {

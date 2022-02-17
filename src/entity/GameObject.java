@@ -6,7 +6,6 @@ import core.Size;
 import display.Camera;
 import game.state.State;
 
-import javax.management.remote.rmi.RMIIIOPServerImpl;
 import java.awt.Image;
 
 public abstract class GameObject {
@@ -53,7 +52,8 @@ public abstract class GameObject {
         return size;
     }
 
-    public void setParent(GameObject parent) {
+    public void parent(GameObject parent) {
+        this.position = new Position(0, 0);
         this.parent = parent;
     }
 
@@ -70,5 +70,13 @@ public abstract class GameObject {
 
     protected void clearParent() {
         parent = null;
+    }
+
+    public Position getRenderOffset() {
+        return renderOffset;
+    }
+
+    public void setRenderOrder(int renderOrder) {
+        this.renderOrder = renderOrder;
     }
 }

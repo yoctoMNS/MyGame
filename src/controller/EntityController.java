@@ -1,8 +1,9 @@
 package controller;
 
 public interface EntityController {
-    boolean isRequestiongUp();
-    boolean isRequestiongDown();
-    boolean isRequestiongLeft();
-    boolean isRequestiongRight();
+    boolean isRequestingUp();
+    boolean isRequestingDown();
+    boolean isRequestingLeft();
+    boolean isRequestingRight();
+    boolean isRequestingAction();
 }
