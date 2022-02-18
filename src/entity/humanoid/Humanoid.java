@@ -95,4 +95,8 @@ public class Humanoid extends MovingEntity {
         return effects.stream()
                 .anyMatch(effect -> clazz.isInstance(effect));
     }
+
+    public List<Effect> getEffects() {
+        return effects;
+    }
 }

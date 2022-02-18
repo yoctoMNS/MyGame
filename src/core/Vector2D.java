@@ -51,4 +51,9 @@ public class Vector2D {
         x *= speed;
         y *= speed;
     }
+
+    public void add(Vector2D vector) {
+        x += vector.x;
+        y += vector.y;
+    }
 }
