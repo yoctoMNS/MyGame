@@ -75,12 +75,14 @@ public class GameState extends State {
     public void update() {
         super.update();
 
-        if (victoryConditions.stream().allMatch(Condition::isMet)) {
-            win();
-        }
+        if (playing) {
+            if (victoryConditions.stream().allMatch(Condition::isMet)) {
+                win();
+            }
 
-        if (defeatConditions.stream().allMatch(Condition::isMet)) {
-            lose();
+            if (defeatConditions.stream().allMatch(Condition::isMet)) {
+                lose();
+            }
         }
     }
 

@@ -26,6 +26,8 @@ public class Display extends JFrame {
         this.canvas = new Canvas();
         this.canvas.setPreferredSize(new Dimension(width, height));
         this.canvas.setFocusable(false);
+        this.canvas.addMouseListener(input);
+        this.canvas.addMouseMotionListener(input);
         add(canvas);
         addKeyListener(input);
         pack();
