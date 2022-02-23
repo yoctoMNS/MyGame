@@ -1,16 +1,16 @@
-package game.state;
+package state;
 
 import core.Position;
 import core.Size;
 import display.Camera;
 import entity.GameObject;
+import game.Game;
 import game.Time;
 import gfx.SpriteLibrary;
 import input.Input;
 import map.GameMap;
 import ui.UIContainer;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -24,6 +24,8 @@ public abstract class State {
     protected Input input;
     protected Camera camera;
     protected Time time;
+    protected State nextState;
+    protected Size windowSize;
 
     public State(Size windowSize, Input input) {
         this.gameObjects = new ArrayList<>();
@@ -32,22 +34,23 @@ public abstract class State {
         this.input = input;
         this.camera = new Camera(windowSize);
         this.time = new Time();
+        this.windowSize = windowSize;
     }
 
-    public void update() {
+    public void update(Game game) {
         time.update();
         sortObjectByPosition();
         updateGameObjects();
-        uiContainers.forEach(uiContainer -> uiContainer.update(this));
+        List.copyOf(uiContainers).forEach(uiContainer -> uiContainer.update(this));
         camera.update(this);
         handleMouseInput();
+
+        if (nextState != null) {
+            game.enterState(nextState);
+        }
     }
 
     private void handleMouseInput() {
-        if (input.isMouseClicked()) {
-            System.out.printf("MOUSE CLICKED AT POSITION x: %d, y: %d\n", input.getMousePosition().getX(), input.getMousePosition().getY());
-        }
-
         input.clearMouseClick();
     }
 
@@ -108,5 +111,9 @@ public abstract class State {
 
     public Input getInput() {
         return input;
+    }
+
+    public void setNextState(State nextState) {
+        this.nextState = nextState;
     }
 }

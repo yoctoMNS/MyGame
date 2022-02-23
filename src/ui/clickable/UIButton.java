@@ -1,7 +1,7 @@
 package ui.clickable;
 
 import core.Size;
-import game.state.State;
+import state.State;
 import ui.UIContainer;
 import ui.UIText;
 import ui.VerticalContainer;
@@ -11,12 +11,12 @@ import java.awt.*;
 public class UIButton extends UIClickable {
     private UIContainer container;
     private UIText label;
-    private Runnable clickEvent;
+    private ClickAction clickAction;
 
-    public UIButton(String label, Runnable clickEvent) {
+    public UIButton(String label, ClickAction clickAction) {
         this.container = new VerticalContainer(new Size(0, 0));
         this.label = new UIText(label);
-        this.clickEvent = clickEvent;
+        this.clickAction = clickAction;
         this.container.addUIComponent(this.label);
         this.container.setFixedSize(new Size(150, 30));
     }
@@ -46,7 +46,7 @@ public class UIButton extends UIClickable {
     }
 
     @Override
-    protected void onClick() {
-        clickEvent.run();
+    protected void onClick(State state) {
+        clickAction.execute(state);
     }
 }

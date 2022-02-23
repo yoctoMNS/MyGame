@@ -2,7 +2,7 @@ package display;
 
 import core.CollisionBox;
 import entity.humanoid.Humanoid;
-import game.state.State;
+import state.State;
 import ui.UIText;
 
 import java.awt.Color;

@@ -7,7 +7,7 @@ import core.Motion;
 import core.Position;
 import core.Size;
 import core.Vector2D;
-import game.state.State;
+import state.State;
 import gfx.AnimationManager;
 import gfx.SpriteLibrary;
 
