@@ -1,4 +1,4 @@
-package map.ui;
+package ui;
 
 import core.Position;
 import core.Size;
@@ -17,6 +17,7 @@ public abstract class UIContainer extends UIComponent {
     protected Alignment alignment;
     protected List<UIComponent> children;
     protected Size windowSize;
+    protected Size fixedSize;
 
     public UIContainer(Size windowSize) {
         super();
@@ -38,10 +39,14 @@ public abstract class UIContainer extends UIComponent {
     private void calculateSize() {
         Size calculatedContentSize = calculateContentSize();
 
-        size = new Size(
-                padding.getHorizontal() + calculatedContentSize.w,
-                padding.getVertical() + calculatedContentSize.h
-        );
+        if (fixedSize != null) {
+            size = fixedSize;
+        } else {
+            size = new Size (
+                    padding.getHorizontal() + calculatedContentSize.w,
+                    padding.getVertical() + calculatedContentSize.h
+            );
+        }
     }
 
     private void calculatePosition() {
@@ -61,7 +66,8 @@ public abstract class UIContainer extends UIComponent {
             y = windowSize.h - size.h - margin.getBottom();
         }
 
-        this.position = new Position(x, y);
+        this.relativePosition = new Position(x, y);
+        this.absolutePosition = new Position(x, y);
         calculateContentPosition();
     }
 
@@ -75,8 +81,8 @@ public abstract class UIContainer extends UIComponent {
         for (UIComponent uiComponent : children) {
             graphics.drawImage(
                     uiComponent.getSprite(),
-                    uiComponent.getPosition().getX(),
-                    uiComponent.getPosition().getY(),
+                    uiComponent.getRelativePosition().getX(),
+                    uiComponent.getRelativePosition().getY(),
                     null
             );
         }
@@ -97,11 +103,15 @@ public abstract class UIContainer extends UIComponent {
         children.add(uiComponent);
     }
 
-    public void getBackgroundColor(Color color) {
+    public void setBackgroundColor(Color color) {
         backgroundColor = color;
     }
 
     public void setAlignment(Alignment alignment) {
         this.alignment = alignment;
+    }
+
+    public void setFixedSize(Size fixedSize) {
+        this.fixedSize = fixedSize;
     }
 }

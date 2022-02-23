@@ -1,4 +1,4 @@
-package map.ui;
+package ui;
 
 public class Alignment {
     public enum Position {

@@ -1,4 +1,4 @@
-package map.ui;
+package ui;
 
 public class Spacing {
     private int top;

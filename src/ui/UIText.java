@@ -1,4 +1,4 @@
-package map.ui;
+package ui;
 
 import core.Size;
 import game.state.State;

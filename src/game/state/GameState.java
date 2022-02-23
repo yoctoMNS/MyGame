@@ -13,10 +13,13 @@ import game.ui.UIGameTime;
 import game.ui.UISicknessStatistics;
 import input.Input;
 import map.GameMap;
-import map.ui.Alignment;
-import map.ui.UIText;
-import map.ui.VerticalContainer;
+import ui.Alignment;
+import ui.Spacing;
+import ui.UIText;
+import ui.VerticalContainer;
+import ui.clickable.UIButton;
 
+import java.awt.*;
 import java.util.List;
 
 public class GameState extends State {
@@ -90,8 +93,11 @@ public class GameState extends State {
         playing = false;
 
         VerticalContainer winContainer = new VerticalContainer(camera.getSize());
+        winContainer.setBackgroundColor(Color.DARK_GRAY);
         winContainer.setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER));
-        winContainer.addUIComponent(new UIText("VICTORY"));
+        winContainer.addUIComponent(new UIButton("Menu", () -> System.out.println("Button 1 pressed!")));
+        winContainer.addUIComponent(new UIButton("Options", () -> System.out.println("Button 2 pressed!")));
+        winContainer.addUIComponent(new UIButton("Exit", () -> System.exit(0)));
         uiContainers.add(winContainer);
     }
 

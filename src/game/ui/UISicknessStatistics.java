@@ -1,16 +1,13 @@
 package game.ui;
 
 import core.Size;
-import entity.MovingEntity;
-import entity.humanoid.Humanoid;
-import entity.humanoid.effect.Sick;
 import game.state.GameState;
 import game.state.State;
-import map.ui.HorizontalContainer;
-import map.ui.Spacing;
-import map.ui.UIContainer;
-import map.ui.UIText;
-import map.ui.VerticalContainer;
+import ui.HorizontalContainer;
+import ui.Spacing;
+import ui.UIContainer;
+import ui.UIText;
+import ui.VerticalContainer;
 
 public class UISicknessStatistics extends HorizontalContainer {
     private UIText numberOfSick;

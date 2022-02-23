@@ -1,4 +1,4 @@
-package map.ui;
+package ui;
 
 import core.Position;
 import core.Size;
@@ -30,7 +30,8 @@ public class HorizontalContainer extends UIContainer {
 
         for (UIComponent uiComponent : children) {
             currentX += uiComponent.getMargin().getLeft();
-            uiComponent.setPosition(new Position(currentX, padding.getTop()));
+            uiComponent.setRelativePosition(new Position(currentX, padding.getTop()));
+            uiComponent.setAbsolutePosition(new Position(currentX + absolutePosition.getX(), padding.getTop() + absolutePosition.getY()));
             currentX += uiComponent.getSize().w;
             currentX += uiComponent.getMargin().getRight();
         }

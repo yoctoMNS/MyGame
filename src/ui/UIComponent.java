@@ -1,4 +1,4 @@
-package map.ui;
+package ui;
 
 import core.Position;
 import core.Size;
@@ -7,13 +7,15 @@ import game.state.State;
 import java.awt.Image;
 
 public abstract class UIComponent {
-    protected Position position;
+    protected Position relativePosition;
+    protected Position absolutePosition;
     protected Size size;
     protected Spacing margin;
     protected Spacing padding;
 
     public UIComponent() {
-        this.position = new Position(0, 0);
+        this.relativePosition = new Position(0, 0);
+        this.absolutePosition = new Position(0, 0);
         this.size = new Size(1, 1);
         this.margin = new Spacing(0);
         this.padding = new Spacing(0);
@@ -23,12 +25,12 @@ public abstract class UIComponent {
 
     public abstract void update(State state);
 
-    public Position getPosition() {
-        return position;
+    public Position getRelativePosition() {
+        return relativePosition;
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
+    public void setRelativePosition(Position relativePosition) {
+        this.relativePosition = relativePosition;
     }
 
     public Size getSize() {
@@ -53,5 +55,13 @@ public abstract class UIComponent {
 
     public void setPadding(Spacing padding) {
         this.padding = padding;
+    }
+
+    public Position getAbsolutePosition() {
+        return absolutePosition;
+    }
+
+    public void setAbsolutePosition(Position absolutePosition) {
+        this.absolutePosition = absolutePosition;
     }
 }

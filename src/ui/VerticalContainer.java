@@ -1,4 +1,4 @@
-package map.ui;
+package ui;
 
 import core.Position;
 import core.Size;
@@ -30,7 +30,8 @@ public class VerticalContainer extends UIContainer {
 
         for (UIComponent uiComponent : children) {
             currentY += uiComponent.getMargin().getTop();
-            uiComponent.setPosition(new Position(padding.getLeft(), currentY));
+            uiComponent.setRelativePosition(new Position(padding.getLeft(), currentY));
+            uiComponent.setAbsolutePosition(new Position(padding.getLeft() + absolutePosition.getX(), currentY + absolutePosition.getY()));
             currentY += uiComponent.getSize().h;
             currentY += uiComponent.getMargin().getBottom();
         }

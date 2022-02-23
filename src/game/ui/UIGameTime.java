@@ -2,9 +2,9 @@ package game.ui;
 
 import core.Size;
 import game.state.State;
-import map.ui.Alignment;
-import map.ui.HorizontalContainer;
-import map.ui.UIText;
+import ui.Alignment;
+import ui.HorizontalContainer;
+import ui.UIText;
 
 public class UIGameTime extends HorizontalContainer {
     private UIText gameTime;

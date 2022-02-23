@@ -4,13 +4,13 @@ import core.Position;
 import core.Size;
 import display.Camera;
 import entity.GameObject;
-import entity.humanoid.Bubble;
 import game.Time;
 import gfx.SpriteLibrary;
 import input.Input;
 import map.GameMap;
-import map.ui.UIContainer;
+import ui.UIContainer;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -104,5 +104,9 @@ public abstract class State {
 
     public void spawn(GameObject gameObject) {
         gameObjects.add(gameObject);
+    }
+
+    public Input getInput() {
+        return input;
     }
 }
