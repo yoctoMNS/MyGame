@@ -10,11 +10,12 @@ import entity.SelectionCircle;
 import entity.humanoid.effect.Isolated;
 import entity.humanoid.effect.Sick;
 import game.Game;
-import state.game.ui.UIGameTime;
-import state.game.ui.UISicknessStatistics;
+import game.settings.GameSettings;
 import input.Input;
 import map.GameMap;
 import state.State;
+import state.game.ui.UIGameTime;
+import state.game.ui.UISicknessStatistics;
 import state.menu.MenuState;
 import ui.Alignment;
 import ui.UIText;
@@ -29,8 +30,8 @@ public class GameState extends State {
     private List<Condition> defeatConditions;
     private boolean playing;
 
-    public GameState(Size windowSize, Input input) {
-        super(windowSize, input);
+    public GameState(Size windowSize, Input input, GameSettings gameSettings) {
+        super(windowSize, input, gameSettings);
         this.gameMap = new GameMap(new Size(20, 20), spriteLibrary);
         this.playing = true;
 
@@ -97,7 +98,7 @@ public class GameState extends State {
         VerticalContainer winContainer = new VerticalContainer(camera.getSize());
         winContainer.setBackgroundColor(Color.DARK_GRAY);
         winContainer.setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER));
-        winContainer.addUIComponent(new UIButton("Menu", (state) -> state.setNextState(new MenuState(windowSize, input))));
+        winContainer.addUIComponent(new UIButton("Menu", (state) -> state.setNextState(new MenuState(windowSize, input, gameSettings))));
         winContainer.addUIComponent(new UIButton("Options", (state) -> System.out.println("Button 2 pressed!")));
         winContainer.addUIComponent(new UIButton("Exit", (state) -> System.exit(0)));
         uiContainers.add(winContainer);

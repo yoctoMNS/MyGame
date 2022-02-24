@@ -7,6 +7,7 @@ import display.Camera;
 import entity.GameObject;
 import game.Game;
 import game.Time;
+import game.settings.GameSettings;
 import gfx.SpriteLibrary;
 import input.Input;
 import map.GameMap;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class State {
+    protected GameSettings gameSettings;
     protected AudioPlayer audioPlayer;
     protected GameMap gameMap;
     protected List<GameObject> gameObjects;
@@ -29,8 +31,9 @@ public abstract class State {
     protected State nextState;
     protected Size windowSize;
 
-    public State(Size windowSize, Input input) {
-        this.audioPlayer = new AudioPlayer();
+    public State(Size windowSize, Input input, GameSettings gameSettings) {
+        this.gameSettings = gameSettings;
+        this.audioPlayer = new AudioPlayer(gameSettings.getAudioSettings());
         this.gameObjects = new ArrayList<>();
         this.uiContainers = new ArrayList<>();
         this.spriteLibrary = new SpriteLibrary();
@@ -41,6 +44,7 @@ public abstract class State {
     }
 
     public void update(Game game) {
+        audioPlayer.update();
         time.update();
         sortObjectByPosition();
         updateGameObjects();
@@ -118,5 +122,9 @@ public abstract class State {
 
     public void setNextState(State nextState) {
         this.nextState = nextState;
+    }
+
+    public GameSettings getGameSettings() {
+        return gameSettings;
     }
 }
