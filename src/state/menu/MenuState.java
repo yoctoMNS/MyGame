@@ -13,6 +13,7 @@ public class MenuState extends State {
 
         this.gameMap = new GameMap(new Size(20, 20), spriteLibrary);
         this.uiContainers.add(new UIMainMenu(windowSize));
+        this.audioPlayer.playMusic("isobubbler.wav");
     }
 
     public void enterMenu(UIContainer container) {
