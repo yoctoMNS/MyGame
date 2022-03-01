@@ -6,23 +6,20 @@ import core.Size;
 import state.State;
 import gfx.ImageUtils;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class SelectionCircle extends GameObject{
+public class SelectionCircle extends GameObject {
+
     private Color color;
     private BufferedImage sprite;
 
     public SelectionCircle() {
-        this.color = new Color(0, 255, 255);
-        this.size = new Size(20, 16);
-        this.renderOffset = new Position(size.w / 2, size.h);
-        this.collisionBoxOffset = renderOffset;
-        this.renderOrder = 4;
-
+        color = new Color(0, 255, 255);
+        size = new Size(20, 16);
+        renderOffset = new Position(size.getWidth() / 2, size.getHeight());
+        collisionBoxOffset = renderOffset;
+        renderOrder = 4;
         initializeSprite();
     }
 
@@ -32,14 +29,13 @@ public class SelectionCircle extends GameObject{
 
         graphics.setColor(color);
         graphics.setStroke(new BasicStroke(2));
-        graphics.drawOval(0, 0, size.w, size.h);
+        graphics.drawOval(0, 0, size.getWidth(), size.getHeight());
 
         graphics.dispose();
     }
 
     @Override
-    public void update(State state) {
-    }
+    public void update(State state) {}
 
     @Override
     public Image getSprite() {

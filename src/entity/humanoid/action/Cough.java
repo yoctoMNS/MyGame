@@ -10,30 +10,32 @@ import game.GameLoop;
 import state.State;
 
 public class Cough extends Action {
+
     private int lifeSpanInSeconds;
     private Size spreadAreaSize;
     private double risk;
 
     public Cough() {
-        this.lifeSpanInSeconds = GameLoop.UPDATES_PER_SECOND;
-        this.spreadAreaSize = new Size(2 * Game.SPRITE_SIZE, 2 * Game.SPRITE_SIZE);
-        this.risk = 0.1;
+        lifeSpanInSeconds = GameLoop.UPDATES_PER_SECOND;
+        spreadAreaSize = new Size(2 * Game.SPRITE_SIZE, 2 * Game.SPRITE_SIZE);
+        risk = 0.1;
     }
 
     @Override
     public void update(State state, Humanoid performer) {
-        if (--lifeSpanInSeconds <= 0) {
+        if(--lifeSpanInSeconds == 0) {
             Position spreadAreaPosition = new Position(
-                    performer.getPosition().x - spreadAreaSize.w / 2,
-                    performer.getPosition().y - spreadAreaSize.h / 2
+                    performer.getPosition().getX() - spreadAreaSize.getWidth() / 2,
+                    performer.getPosition().getY() - spreadAreaSize.getHeight() / 2
             );
 
             CollisionBox spreadArea = CollisionBox.of(spreadAreaPosition, spreadAreaSize);
+
             state.getGameObjectsOfClass(Humanoid.class).stream()
                     .filter(humanoid -> humanoid.getCollisionBox().collidesWith(spreadArea))
                     .filter(humanoid -> !humanoid.isAffectedBy(Sick.class))
                     .forEach(humanoid -> {
-                        if (Math.random() < risk) {
+                        if(Math.random() < risk) {
                             humanoid.addEffect(new Sick());
                         }
                     });
@@ -42,7 +44,7 @@ public class Cough extends Action {
 
     @Override
     public boolean isDone() {
-        return lifeSpanInSeconds == 0;
+        return lifeSpanInSeconds <= 0;
     }
 
     @Override

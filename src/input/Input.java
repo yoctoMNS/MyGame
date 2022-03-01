@@ -2,13 +2,10 @@ package input;
 
 import core.Position;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 
 public class Input implements KeyListener, MouseListener, MouseMotionListener {
+
     private Position mousePosition;
     private boolean mouseClicked;
     private boolean mousePressed;
@@ -17,13 +14,13 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
     private boolean[] pressed;
 
     public Input() {
-        this.mousePosition = new Position(0, 0);
-        this.currentlyPressed = new boolean[KeyEvent.KEY_LAST];
-        this.pressed = new boolean[KeyEvent.KEY_LAST];
+        pressed = new boolean[1000];
+        currentlyPressed = new boolean[1000];
+        mousePosition = new Position(-1, -1);
     }
 
     public boolean isPressed(int keyCode) {
-        if (!pressed[keyCode] && currentlyPressed[keyCode]) {
+        if(!pressed[keyCode] && currentlyPressed[keyCode]) {
             pressed[keyCode] = true;
             return true;
         }
@@ -52,8 +49,7 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-    }
+    public void keyTyped(KeyEvent e) {}
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -67,8 +63,7 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-    }
+    public void mouseClicked(MouseEvent e) {}
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -82,20 +77,18 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
     }
 
     @Override
-    public void mouseEntered(MouseEvent e) {
-    }
+    public void mouseEntered(MouseEvent e) {}
 
     @Override
-    public void mouseExited(MouseEvent e) {
-    }
+    public void mouseExited(MouseEvent e) {}
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        mousePosition = new Position(e.getX(), e.getY());
+        mousePosition = new Position(e.getPoint().getX(), e.getPoint().getY());
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        mousePosition = new Position(e.getX(), e.getY());
+        mousePosition = new Position(e.getPoint().getX(), e.getPoint().getY());
     }
 }

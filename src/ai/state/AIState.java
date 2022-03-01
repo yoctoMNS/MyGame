@@ -5,6 +5,7 @@ import entity.NPC;
 import state.State;
 
 public abstract class AIState {
+
     private AITransition transition;
 
     public AIState() {
@@ -12,7 +13,6 @@ public abstract class AIState {
     }
 
     protected abstract AITransition initializeTransition();
-
     public abstract void update(State state, NPC currentCharacter);
 
     public boolean shouldTransition(State state, NPC currentCharacter) {

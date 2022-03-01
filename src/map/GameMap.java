@@ -9,17 +9,18 @@ import gfx.SpriteLibrary;
 import java.util.Arrays;
 
 public class GameMap {
+
     private static final int SAFETY_SPACE = 2;
 
     private Tile[][] tiles;
 
     public GameMap(Size size, SpriteLibrary spriteLibrary) {
-        this.tiles = new Tile[size.w][size.h];
+        tiles = new Tile[size.getWidth()][size.getHeight()];
         initializeTiles(spriteLibrary);
     }
 
     private void initializeTiles(SpriteLibrary spriteLibrary) {
-        for (Tile[] row : tiles) {
+        for(Tile[] row: tiles) {
             Arrays.fill(row, new Tile(spriteLibrary));
         }
     }
@@ -52,8 +53,8 @@ public class GameMap {
 
     public Position getViewableEndingGridPosition(Camera camera) {
         return new Position(
-                Math.min(tiles.length, camera.getPosition().getX() / Game.SPRITE_SIZE + camera.getSize().w / Game.SPRITE_SIZE + SAFETY_SPACE),
-                Math.min(tiles[0].length, camera.getPosition().getY() / Game.SPRITE_SIZE + camera.getSize().h / Game.SPRITE_SIZE + SAFETY_SPACE)
+                Math.min(tiles.length, camera.getPosition().getX() / Game.SPRITE_SIZE + camera.getSize().getWidth() / Game.SPRITE_SIZE + SAFETY_SPACE),
+                Math.min(tiles[0].length, camera.getPosition().getY() / Game.SPRITE_SIZE + camera.getSize().getHeight() / Game.SPRITE_SIZE + SAFETY_SPACE)
         );
     }
 }

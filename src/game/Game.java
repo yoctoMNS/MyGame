@@ -4,11 +4,13 @@ import controller.GameController;
 import core.Size;
 import display.Display;
 import game.settings.GameSettings;
-import input.Input;
+import state.game.GameState;
 import state.State;
+import input.Input;
 import state.menu.MenuState;
 
 public class Game {
+
     public static int SPRITE_SIZE = 64;
 
     private Display display;
@@ -18,11 +20,11 @@ public class Game {
     private GameController gameController;
 
     public Game(int width, int height) {
-        this.input = new Input();
-        this.display = new Display(width, height, input);
-        this.settings = new GameSettings(false);
-        this.state = new MenuState(new Size(width, height), input, settings);
-        this.gameController = new GameController(input);
+        input = new Input();
+        display = new Display(width, height, input);
+        settings = new GameSettings(false);
+        state = new MenuState(new Size(width, height), input, settings);
+        gameController = new GameController(input);
     }
 
     public void update() {
@@ -39,6 +41,7 @@ public class Game {
     }
 
     public void enterState(State nextState) {
+        state.cleanUp();
         state = nextState;
     }
 }

@@ -3,6 +3,7 @@ package core;
 import controller.EntityController;
 
 public class Motion {
+
     private Vector2D vector;
     private double speed;
 
@@ -12,18 +13,22 @@ public class Motion {
     }
 
     public void update(EntityController entityController) {
-        int deltaX = 0, deltaY = 0;
+        int deltaX = 0;
+        int deltaY = 0;
 
-        if (entityController.isRequestingUp()) {
+        if(entityController.isRequestingUp()) {
             deltaY--;
         }
-        if (entityController.isRequestingDown()) {
+
+        if(entityController.isRequestingDown()) {
             deltaY++;
         }
-        if (entityController.isRequestingLeft()) {
+
+        if(entityController.isRequestingLeft()) {
             deltaX--;
         }
-        if (entityController.isRequestingRight()) {
+
+        if(entityController.isRequestingRight()) {
             deltaX++;
         }
 
@@ -46,8 +51,8 @@ public class Motion {
 
     public void stop(boolean stopX, boolean stopY) {
         vector = new Vector2D(
-                stopX ? 0 : vector.x,
-                stopY ? 0 : vector.y
+                stopX ? 0 : vector.getX(),
+                stopY ? 0 : vector.getY()
         );
     }
 

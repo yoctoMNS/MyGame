@@ -4,34 +4,33 @@ import core.Size;
 import state.State;
 import gfx.ImageUtils;
 
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class UIText extends UIComponent {
+
     private String text;
     private int fontSize;
     private int fontStyle;
     private String fontFamily;
     private Color color;
+
     private boolean dropShadow;
     private int dropShadowOffset;
     private Color shadowColor;
+
     private Font font;
 
     public UIText(String text) {
         this.text = text;
-        this.fontSize = 24;
-        this.fontStyle = Font.PLAIN;
-        this.fontFamily = Font.MONOSPACED;
+        this.fontSize = 16;
+        this.fontStyle = Font.BOLD;
+        this.fontFamily = "Joystix Monospace";
         this.color = Color.WHITE;
+
         this.dropShadow = true;
         this.dropShadowOffset = 2;
-        this.shadowColor = new Color(140, 140, 140);
+        this.shadowColor = new Color(140,140, 140);
     }
 
     @Override
@@ -40,19 +39,15 @@ public class UIText extends UIComponent {
         Graphics2D graphics = image.createGraphics();
         graphics.setFont(font);
 
-        if (dropShadow) {
+        if(dropShadow) {
             graphics.setColor(shadowColor);
-            graphics.drawString(
-                    text,
-                    padding.getLeft() + dropShadowOffset,
-                    fontSize + padding.getTop() + dropShadowOffset
-            );
+            graphics.drawString(text, padding.getLeft() + dropShadowOffset, fontSize + padding.getTop() + dropShadowOffset);
         }
 
         graphics.setColor(color);
         graphics.drawString(text, padding.getLeft(), fontSize + padding.getTop());
-        graphics.dispose();
 
+        graphics.dispose();
         return image;
     }
 
@@ -67,9 +62,8 @@ public class UIText extends UIComponent {
         int width = fontMetrics.stringWidth(text) + padding.getHorizontal();
         int height = fontMetrics.getHeight() + padding.getVertical();
 
-        if (dropShadow) {
+        if(dropShadow) {
             width += dropShadowOffset;
-            height += dropShadowOffset;
         }
 
         size = new Size(width, height);

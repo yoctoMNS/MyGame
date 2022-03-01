@@ -2,13 +2,14 @@ package map;
 
 import gfx.SpriteLibrary;
 
-import java.awt.Image;
+import java.awt.*;
 
 public class Tile {
+
     private Image sprite;
 
     public Tile(SpriteLibrary spriteLibrary) {
-        sprite = spriteLibrary.getImage("woodfloor");
+        this.sprite = spriteLibrary.getImage("woodfloor");
     }
 
     public Image getSprite() {

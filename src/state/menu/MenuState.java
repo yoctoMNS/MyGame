@@ -11,10 +11,11 @@ import ui.UIContainer;
 public class MenuState extends State {
     public MenuState(Size windowSize, Input input, GameSettings gameSettings) {
         super(windowSize, input, gameSettings);
+        gameMap = new GameMap(new Size(20, 20), spriteLibrary);
 
-        this.gameMap = new GameMap(new Size(20, 20), spriteLibrary);
-        this.uiContainers.add(new UIMainMenu(windowSize));
-        this.audioPlayer.playMusic("isobubbler.wav");
+        uiContainers.add(new UIMainMenu(windowSize));
+
+        audioPlayer.playMusic("isobubbler.wav");
     }
 
     public void enterMenu(UIContainer container) {

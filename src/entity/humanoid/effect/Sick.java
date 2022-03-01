@@ -6,6 +6,7 @@ import game.GameLoop;
 import state.State;
 
 public class Sick extends Effect {
+
     private static final double COUGH_RATE = 1d / GameLoop.UPDATES_PER_SECOND / 10;
 
     public Sick() {
@@ -16,7 +17,7 @@ public class Sick extends Effect {
     public void update(State state, Humanoid humanoid) {
         super.update(state, humanoid);
 
-        if (Math.random() < COUGH_RATE) {
+        if(Math.random() < COUGH_RATE) {
             humanoid.perform(new Cough());
         }
     }

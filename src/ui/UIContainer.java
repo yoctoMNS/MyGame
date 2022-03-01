@@ -5,30 +5,30 @@ import core.Size;
 import state.State;
 import gfx.ImageUtils;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class UIContainer extends UIComponent {
+
     protected Color backgroundColor;
+
     protected Alignment alignment;
-    protected List<UIComponent> children;
     protected Size windowSize;
+
     protected Size fixedSize;
+
+    protected List<UIComponent> children;
 
     public UIContainer(Size windowSize) {
         super();
-
-        this.backgroundColor = new Color(0, 0, 0, 0);
-        this.alignment = new Alignment(Alignment.Position.START, Alignment.Position.START);
-        this.margin = new Spacing(5);
-        this.padding = new Spacing(5);
-        this.children = new ArrayList<>();
         this.windowSize = windowSize;
-
+        alignment = new Alignment(Alignment.Position.START, Alignment.Position.START);
+        backgroundColor = new Color(0, 0, 0, 0);
+        margin = new Spacing(5);
+        padding = new Spacing(5);
+        children = new ArrayList<>();
         calculateSize();
         calculatePosition();
     }
@@ -38,36 +38,32 @@ public abstract class UIContainer extends UIComponent {
 
     private void calculateSize() {
         Size calculatedContentSize = calculateContentSize();
-
-        if (fixedSize != null) {
-            size = fixedSize;
-        } else {
-            size = new Size (
-                    padding.getHorizontal() + calculatedContentSize.w,
-                    padding.getVertical() + calculatedContentSize.h
-            );
-        }
+        size = fixedSize != null
+                ? fixedSize
+                : new Size(
+                padding.getHorizontal() + calculatedContentSize.getWidth(),
+                padding.getVertical() + calculatedContentSize.getHeight());
     }
 
     private void calculatePosition() {
         int x = padding.getLeft();
-        if (alignment.getHorizontal().equals(Alignment.Position.CENTER)) {
-            x = windowSize.w / 2 - size.w / 2;
+        if(alignment.getHorizontal().equals(Alignment.Position.CENTER)) {
+            x = windowSize.getWidth() / 2 - size.getWidth() / 2;
         }
-        if (alignment.getHorizontal().equals(Alignment.Position.END)) {
-            x = windowSize.w - size.w - margin.getRight();
+        if(alignment.getHorizontal().equals(Alignment.Position.END)) {
+            x = windowSize.getWidth() - size.getWidth() - margin.getRight();
         }
 
         int y = padding.getTop();
-        if (alignment.getVertical().equals(Alignment.Position.CENTER)) {
-            y = windowSize.h / 2 - size.h / 2;
+        if(alignment.getVertical().equals(Alignment.Position.CENTER)) {
+            y = windowSize.getHeight() / 2 - size.getHeight() / 2;
         }
-        if (alignment.getVertical().equals(Alignment.Position.END)) {
-            y = windowSize.h - size.h - margin.getBottom();
+        if(alignment.getVertical().equals(Alignment.Position.END)) {
+            y = windowSize.getHeight() - size.getHeight() - margin.getBottom();
         }
 
         this.relativePosition = new Position(x, y);
-        if (parent == null) {
+        if(parent == null) {
             this.absolutePosition = new Position(x, y);
         }
         calculateContentPosition();
@@ -77,20 +73,20 @@ public abstract class UIContainer extends UIComponent {
     public Image getSprite() {
         BufferedImage image = (BufferedImage) ImageUtils.createCompatibleImage(size, ImageUtils.ALPHA_BIT_MASKED);
         Graphics2D graphics = image.createGraphics();
-        graphics.setColor(backgroundColor);
-        graphics.fillRect(0, 0, size.w, size.h);
 
-        for (UIComponent uiComponent : children) {
+        graphics.setColor(backgroundColor);
+        graphics.fillRect(0, 0, size.getWidth(), size.getHeight());
+
+        for(UIComponent uiComponent : children) {
             graphics.drawImage(
                     uiComponent.getSprite(),
-                    uiComponent.getRelativePosition().getX(),
-                    uiComponent.getRelativePosition().getY(),
+                    uiComponent.getRelativePosition().intX(),
+                    uiComponent.getRelativePosition().intY(),
                     null
             );
         }
 
         graphics.dispose();
-
         return image;
     }
 

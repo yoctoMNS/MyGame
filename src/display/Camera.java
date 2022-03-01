@@ -6,13 +6,16 @@ import entity.GameObject;
 import game.Game;
 import state.State;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.Optional;
 
 public class Camera {
+
     private static final int SAFETY_SPACE = 2 * Game.SPRITE_SIZE;
+
     private Position position;
     private Size windowSize;
+
     private Rectangle viewBounds;
 
     private Optional<GameObject> objectWithFocus;
@@ -26,10 +29,10 @@ public class Camera {
 
     private void calculateViewBounds() {
         viewBounds = new Rectangle(
-                position.getX(),
-                position.getY(),
-                windowSize.w + SAFETY_SPACE,
-                windowSize.h + SAFETY_SPACE
+                position.intX(),
+                position.intY(),
+                windowSize.getWidth() + SAFETY_SPACE,
+                windowSize.getHeight() + SAFETY_SPACE
         );
     }
 
@@ -38,11 +41,11 @@ public class Camera {
     }
 
     public void update(State state) {
-        if (objectWithFocus.isPresent()) {
+        if(objectWithFocus.isPresent()) {
             Position objectPosition = objectWithFocus.get().getPosition();
 
-            this.position.x = objectPosition.x - windowSize.w / 2;
-            this.position.y = objectPosition.y - windowSize.h / 2;
+            this.position.setX(objectPosition.getX() - windowSize.getWidth() / 2);
+            this.position.setY(objectPosition.getY() - windowSize.getHeight() / 2);
 
             clampWithinBounds(state);
             calculateViewBounds();
@@ -50,20 +53,20 @@ public class Camera {
     }
 
     private void clampWithinBounds(State state) {
-        if (position.x < 0) {
-            position.x = 0;
+        if(position.getX() < 0) {
+            position.setX(0);
         }
 
-        if (position.y < 0) {
-            position.y = 0;
+        if(position.getY() < 0) {
+            position.setY(0);
         }
 
-        if (position.x + windowSize.w > state.getGameMap().getWidth()) {
-            position.x = state.getGameMap().getWidth() - windowSize.w;
+        if(position.getX() + windowSize.getWidth() > state.getGameMap().getWidth()) {
+            position.setX(state.getGameMap().getWidth() - windowSize.getWidth());
         }
 
-        if (position.y + windowSize.h > state.getGameMap().getHeight()) {
-            position.y = state.getGameMap().getHeight() - windowSize.h;
+        if(position.getY() + windowSize.getHeight() > state.getGameMap().getHeight()) {
+            position.setY(state.getGameMap().getHeight() - windowSize.getHeight());
         }
     }
 
@@ -73,11 +76,10 @@ public class Camera {
 
     public boolean isInView(GameObject gameObject) {
         return viewBounds.intersects(
-                gameObject.getPosition().getX(),
-                gameObject.getPosition().getY(),
-                gameObject.getSize().w,
-                gameObject.getSize().h
-        );
+                gameObject.getPosition().intX(),
+                gameObject.getPosition().intY(),
+                gameObject.getSize().getWidth(),
+                gameObject.getSize().getHeight());
     }
 
     public Size getSize() {

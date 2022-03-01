@@ -4,31 +4,44 @@ import core.Position;
 import state.State;
 import ui.UIComponent;
 
-import java.awt.Rectangle;
+import java.awt.*;
 
 public abstract class UIClickable extends UIComponent {
+
     protected boolean hasFocus;
     protected boolean isPressed;
 
     @Override
     public void update(State state) {
         Position mousePosition = state.getInput().getMousePosition();
-        hasFocus = getBounds().contains(mousePosition.getX(), mousePosition.getY());
+        boolean previousFocus = hasFocus;
+
+        hasFocus = getBounds().contains(mousePosition.intX(), mousePosition.intY());
         isPressed = hasFocus && state.getInput().isMousePressed();
 
-        if (hasFocus && state.getInput().isMouseClicked()) {
+        if(hasFocus && state.getInput().isMouseClicked()) {
             onClick(state);
+        }
+
+        if(hasFocus && state.getInput().isMousePressed()) {
+            onDrag(state);
+        }
+
+        if(!previousFocus && hasFocus) {
+            onFocus(state);
         }
     }
 
+    protected abstract void onFocus(State state);
+    protected abstract void onDrag(State state);
     protected abstract void onClick(State state);
 
-    public Rectangle getBounds() {
+    private Rectangle getBounds() {
         return new Rectangle(
-                absolutePosition.getX(),
-                absolutePosition.getY(),
-                size.w,
-                size.h
+                absolutePosition.intX(),
+                absolutePosition.intY(),
+                size.getWidth(),
+                size.getHeight()
         );
     }
 }

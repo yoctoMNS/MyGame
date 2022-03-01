@@ -20,63 +20,59 @@ public class Humanoid extends MovingEntity {
 
     public Humanoid(EntityController entityController, SpriteLibrary spriteLibrary) {
         super(entityController, spriteLibrary);
-        this.effects = new ArrayList<>();
-        this.action = Optional.empty();
+
+        effects = new ArrayList<>();
+        action = Optional.empty();
+
         this.collisionBoxSize = new Size(16, 28);
-        this.renderOffset = new Position(size.w / 2, size.h - 12);
-        this.collisionBoxOffset = new Position(collisionBoxSize.w / 2, collisionBoxSize.h);
+        this.renderOffset = new Position(size.getWidth() / 2, size.getHeight() - 12);
+        this.collisionBoxOffset = new Position(collisionBoxSize.getWidth() / 2, collisionBoxSize.getHeight());
     }
 
     @Override
     public void update(State state) {
         super.update(state);
-
         handleAction(state);
         effects.forEach(effect -> effect.update(state, this));
-        cleanUp();
+
+        cleanup();
     }
 
-    @Override
-     protected void handleMotion() {
-        if (action.isPresent()) {
-            motion.stop(true, true);
+    private void cleanup() {
+        List.copyOf(effects).stream()
+                .filter(Effect::shouldDelete)
+                .forEach(effects::remove);
+
+        if(action.isPresent() && action.get().isDone()) {
+            action = Optional.empty();
         }
     }
 
     @Override
     protected String decideAnimation() {
-        if (action.isPresent()) {
+        if(action.isPresent()) {
             return action.get().getAnimationName();
-        } else if (motion.isMoving()) {
+        } else if(motion.isMoving()) {
             return "walk";
         }
 
         return "stand";
     }
 
-    private void cleanUp() {
-        List.copyOf(effects).stream()
-                .filter(Effect::shouldDelete)
-                .forEach(effects::remove);
-
-        if (action.isPresent() && action.get().isDone()) {
-            action = Optional.empty();
-        }
-    }
-
     private void handleAction(State state) {
-        if (action.isPresent()) {
+        if(action.isPresent()) {
             action.get().update(state, this);
         }
     }
 
-    @Override
-    protected void handleCollision(GameObject other) {
-
+    protected void handleMotion() {
+        if(action.isPresent()) {
+            motion.stop(true, true);
+        }
     }
 
     public void perform(Action action) {
-        if (this.action.isPresent() && !this.action.get().isInterruptable()) {
+        if(this.action.isPresent() && !this.action.get().isInterruptable()) {
             return;
         }
 
@@ -95,6 +91,9 @@ public class Humanoid extends MovingEntity {
         return effects.stream()
                 .anyMatch(effect -> clazz.isInstance(effect));
     }
+
+    @Override
+    protected void handleCollision(GameObject other) {}
 
     public List<Effect> getEffects() {
         return effects;

@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class State {
+
     protected GameSettings gameSettings;
     protected AudioPlayer audioPlayer;
     protected GameMap gameMap;
@@ -28,31 +29,33 @@ public abstract class State {
     protected Input input;
     protected Camera camera;
     protected Time time;
-    protected State nextState;
+
     protected Size windowSize;
+
+    private State nextState;
 
     public State(Size windowSize, Input input, GameSettings gameSettings) {
         this.gameSettings = gameSettings;
-        this.audioPlayer = new AudioPlayer(gameSettings.getAudioSettings());
-        this.gameObjects = new ArrayList<>();
-        this.uiContainers = new ArrayList<>();
-        this.spriteLibrary = new SpriteLibrary();
-        this.input = input;
-        this.camera = new Camera(windowSize);
-        this.time = new Time();
         this.windowSize = windowSize;
+        this.input = input;
+        audioPlayer = new AudioPlayer(gameSettings.getAudioSettings());
+        gameObjects = new ArrayList<>();
+        uiContainers = new ArrayList<>();
+        spriteLibrary = new SpriteLibrary();
+        camera = new Camera(windowSize);
+        time = new Time();
     }
 
     public void update(Game game) {
         audioPlayer.update();
         time.update();
-        sortObjectByPosition();
+        sortObjectsByPosition();
         updateGameObjects();
         List.copyOf(uiContainers).forEach(uiContainer -> uiContainer.update(this));
         camera.update(this);
         handleMouseInput();
 
-        if (nextState != null) {
+        if(nextState != null) {
             game.enterState(nextState);
         }
     }
@@ -62,12 +65,12 @@ public abstract class State {
     }
 
     private void updateGameObjects() {
-        for (int i = 0; i < gameObjects.size(); i++ ) {
+        for(int i = 0; i < gameObjects.size(); i++) {
             gameObjects.get(i).update(this);
         }
     }
 
-    private void sortObjectByPosition() {
+    private void sortObjectsByPosition() {
         gameObjects.sort(Comparator.comparing(GameObject::getRenderOrder).thenComparing(gameObject -> gameObject.getPosition().getY()));
     }
 
@@ -104,7 +107,7 @@ public abstract class State {
     public <T extends GameObject> List<T> getGameObjectsOfClass(Class<T> clazz) {
         return gameObjects.stream()
                 .filter(clazz::isInstance)
-                .map(gameObject -> (T)gameObject)
+                .map(gameObject -> (T) gameObject)
                 .collect(Collectors.toList());
     }
 
@@ -126,5 +129,13 @@ public abstract class State {
 
     public GameSettings getGameSettings() {
         return gameSettings;
+    }
+
+    public AudioPlayer getAudioPlayer() {
+        return audioPlayer;
+    }
+
+    public void cleanUp() {
+        audioPlayer.clear();
     }
 }

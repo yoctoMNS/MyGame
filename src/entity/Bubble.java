@@ -1,30 +1,27 @@
-package entity.humanoid;
+package entity;
 
 import controller.NPCController;
 import core.Direction;
 import core.Vector2D;
-import entity.GameObject;
-import entity.MovingEntity;
 import gfx.AnimationManager;
 import gfx.SpriteLibrary;
 import gfx.SpriteSet;
 
 public class Bubble extends MovingEntity {
+
     private boolean halted;
 
     public Bubble(NPCController npcController, SpriteLibrary spriteLibrary) {
         super(npcController, spriteLibrary);
-
         this.animationManager = new AnimationManager(new SpriteSet(spriteLibrary.getImage("bubble")), false);
     }
 
     @Override
-    protected void handleCollision(GameObject other) {
-    }
+    protected void handleCollision(GameObject other) {}
 
     @Override
     protected void handleMotion() {
-        if (!halted) {
+        if(!halted) {
             motion.add(new Vector2D(0, -0.5));
         }
 
@@ -34,7 +31,7 @@ public class Bubble extends MovingEntity {
 
     @Override
     protected String decideAnimation() {
-        return "defualt";
+        return "default";
     }
 
     public void halt() {
@@ -42,9 +39,9 @@ public class Bubble extends MovingEntity {
     }
 
     public void insert(GameObject gameObject) {
-        position = gameObject.getPosition();
-        renderOffset = gameObject.getRenderOffset();
-        collisionBoxOffset = renderOffset;
+        this.position = gameObject.getPosition();
+        this.renderOffset = gameObject.getRenderOffset();
+        this.collisionBoxOffset = renderOffset;
         gameObject.parent(this);
     }
 }

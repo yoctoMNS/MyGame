@@ -12,6 +12,7 @@ import java.util.Comparator;
 import java.util.Optional;
 
 public class Player extends Humanoid {
+
     private NPC target;
     private double targetRange;
     private SelectionCircle selectionCircle;
@@ -26,12 +27,13 @@ public class Player extends Humanoid {
     public void update(State state) {
         super.update(state);
         handleTarget(state);
+
         handleInput(state);
     }
 
     private void handleInput(State state) {
-        if (entityController.isRequestingAction()) {
-            if (target != null) {
+        if(entityController.isRequestingAction()) {
+            if(target != null) {
                 perform(new BlowBubble(target));
             }
         }
@@ -40,9 +42,9 @@ public class Player extends Humanoid {
     private void handleTarget(State state) {
         Optional<NPC> closestNPC = findClosestNPC(state);
 
-        if (closestNPC.isPresent()) {
+        if(closestNPC.isPresent()) {
             NPC npc = closestNPC.get();
-            if (!npc.equals(target)) {
+            if(!npc.equals(target)) {
                 selectionCircle.parent(npc);
                 target = npc;
             }
@@ -54,13 +56,12 @@ public class Player extends Humanoid {
 
     private Optional<NPC> findClosestNPC(State state) {
         return state.getGameObjectsOfClass(NPC.class).stream()
-                .filter(npc -> getPosition().distanceTo(npc.position) < targetRange)
-                .filter(npc -> isFacing(npc.position))
+                .filter(npc -> getPosition().distanceTo(npc.getPosition()) < targetRange)
+                .filter(npc -> isFacing(npc.getPosition()))
                 .filter(npc -> !npc.isAffectedBy(Isolated.class))
-                .min(Comparator.comparingDouble(npc -> position.distanceTo(npc.position)));
+                .min(Comparator.comparingDouble(npc -> position.distanceTo(npc.getPosition())));
     }
 
     @Override
-    protected void handleCollision(GameObject other) {
-    }
+    protected void handleCollision(GameObject other) {}
 }

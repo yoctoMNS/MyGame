@@ -13,11 +13,11 @@ public class HorizontalContainer extends UIContainer {
         int combinedChildWidth = 0;
         int tallestChildHeight = 0;
 
-        for (UIComponent uiComponent : children) {
-            combinedChildWidth += uiComponent.getSize().w + uiComponent.getMargin().getHorizontal();
+        for(UIComponent uiComponent : children) {
+            combinedChildWidth += uiComponent.getSize().getWidth() + uiComponent.getMargin().getHorizontal();
 
-            if (uiComponent.getSize().h > tallestChildHeight) {
-                tallestChildHeight = uiComponent.getSize().h;
+            if(uiComponent.getSize().getHeight() > tallestChildHeight) {
+                tallestChildHeight = uiComponent.getSize().getHeight();
             }
         }
 
@@ -28,11 +28,11 @@ public class HorizontalContainer extends UIContainer {
     protected void calculateContentPosition() {
         int currentX = padding.getLeft();
 
-        for (UIComponent uiComponent : children) {
+        for(UIComponent uiComponent : children) {
             currentX += uiComponent.getMargin().getLeft();
             uiComponent.setRelativePosition(new Position(currentX, padding.getTop()));
-            uiComponent.setAbsolutePosition(new Position(currentX + absolutePosition.getX(), padding.getTop() + absolutePosition.getY()));
-            currentX += uiComponent.getSize().w;
+            uiComponent.setAbsolutePosition(new Position(currentX + absolutePosition.intX(), padding.getTop() + absolutePosition.intY()));
+            currentX += uiComponent.getSize().getWidth();
             currentX += uiComponent.getMargin().getRight();
         }
     }

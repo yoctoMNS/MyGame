@@ -1,16 +1,17 @@
 package ui;
 
 public class Alignment {
+
     public enum Position {
-        START, CENTER, END;
+        START, CENTER, END
     }
 
-    private Position horizontal;
-    private Position vertical;
+    private final Position horizontal;
+    private final Position vertical;
 
     public Alignment(Position horizontal, Position vertical) {
-        this.horizontal = horizontal;
         this.vertical = vertical;
+        this.horizontal = horizontal;
     }
 
     public Position getVertical() {

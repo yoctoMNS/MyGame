@@ -1,28 +1,33 @@
 package ui;
 
 public class Spacing {
+
     private int top;
+    private int right;
     private int bottom;
     private int left;
-    private int right;
 
     public Spacing(int spacing) {
         this(spacing, spacing);
     }
 
     public Spacing(int horizontal, int vertical) {
-        this(vertical, vertical, horizontal, horizontal);
+        this(vertical, horizontal, vertical, horizontal);
     }
 
-    public Spacing(int top, int bottom, int left, int right) {
+    public Spacing(int top, int right, int bottom, int left) {
         this.top = top;
+        this.right = right;
         this.bottom = bottom;
         this.left = left;
-        this.right = right;
     }
 
     public int getTop() {
         return top;
+    }
+
+    public int getRight() {
+        return right;
     }
 
     public int getBottom() {
@@ -33,15 +38,11 @@ public class Spacing {
         return left;
     }
 
-    public int getRight() {
-        return right;
-    }
-
-    public int getHorizontal() {
+    public int getVertical() {
         return top + bottom;
     }
 
-    public int getVertical() {
-        return left + right;
+    public int getHorizontal() {
+        return right + left;
     }
 }

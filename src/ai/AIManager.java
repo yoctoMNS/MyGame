@@ -7,6 +7,7 @@ import entity.NPC;
 import state.State;
 
 public class AIManager {
+
     private AIState currentAIState;
 
     public AIManager() {
@@ -16,19 +17,19 @@ public class AIManager {
     public void update(State state, NPC currentCharacter) {
         currentAIState.update(state, currentCharacter);
 
-        if (currentAIState.shouldTransition(state, currentCharacter)) {
+        if(currentAIState.shouldTransition(state, currentCharacter)) {
             transitionTo(currentAIState.getNextState());
         }
     }
 
     private void transitionTo(String nextState) {
-        switch (nextState) {
-        case "wander":
-            currentAIState = new Wander();
-            return;
-        case "stand":
-        default:
-            currentAIState = new Stand();
+        switch(nextState) {
+            case "wander":
+                currentAIState = new Wander();
+                return;
+            case "stand":
+            default:
+                currentAIState = new Stand();
         }
     }
 }

@@ -6,28 +6,28 @@ import core.Size;
 import display.Camera;
 import state.State;
 
-import java.awt.Image;
+import java.awt.*;
 
 public abstract class GameObject {
     protected Position position;
     protected Position renderOffset;
     protected Position collisionBoxOffset;
     protected Size size;
-    protected GameObject parent;
+
     protected int renderOrder;
 
+    protected GameObject parent;
+
     public GameObject() {
-        this.position = new Position(0, 0);
-        this.renderOffset = new Position(0, 0);
-        this.collisionBoxOffset = new Position(0, 0);
-        this.size = new Size(64, 64);
-        this.renderOrder = 5;
+        position = new Position(0, 0);
+        size = new Size(64, 64);
+        renderOffset = new Position(0, 0);
+        collisionBoxOffset = new Position(0, 0);
+        renderOrder = 5;
     }
 
     public abstract void update(State state);
-
     public abstract Image getSprite();
-
     public abstract CollisionBox getCollisionBox();
 
     public boolean collidesWith(GameObject other) {
@@ -37,8 +37,8 @@ public abstract class GameObject {
     public Position getPosition() {
         Position finalPosition = Position.copyOf(position);
 
-        if (parent != null) {
-            finalPosition.add(parent.position);
+        if(parent != null) {
+            finalPosition.add(parent.getPosition());
         }
 
         return finalPosition;
@@ -57,11 +57,10 @@ public abstract class GameObject {
         this.parent = parent;
     }
 
-    public Position getRendererPosition(Camera camera) {
+    public Position getRenderPosition(Camera camera) {
         return new Position(
                 getPosition().getX() - camera.getPosition().getX() - renderOffset.getX(),
-                getPosition().getY() - camera.getPosition().getY() - renderOffset.getY()
-        );
+                getPosition().getY() - camera.getPosition().getY() - renderOffset.getY());
     }
 
     public int getRenderOrder() {
@@ -72,7 +71,7 @@ public abstract class GameObject {
         parent = null;
     }
 
-    public Position getRenderOffset() {
+    protected Position getRenderOffset() {
         return renderOffset;
     }
 

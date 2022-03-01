@@ -9,31 +9,34 @@ import ui.VerticalContainer;
 import java.awt.*;
 
 public class UIButton extends UIClickable {
+
     private UIContainer container;
     private UIText label;
+
     private ClickAction clickAction;
 
     public UIButton(String label, ClickAction clickAction) {
-        this.container = new VerticalContainer(new Size(0, 0));
         this.label = new UIText(label);
         this.clickAction = clickAction;
-        this.container.addUIComponent(this.label);
-        this.container.setFixedSize(new Size(150, 30));
+
+        container = new VerticalContainer(new Size(0, 0));
+        container.addUIComponent(this.label);
+        container.setFixedSize(new Size(150, 30));
     }
 
     @Override
     public void update(State state) {
         super.update(state);
-
         container.update(state);
         size = container.getSize();
+
         Color color = Color.GRAY;
 
-        if (hasFocus) {
+        if(hasFocus) {
             color = Color.LIGHT_GRAY;
         }
 
-        if (isPressed) {
+        if(isPressed) {
             color = Color.DARK_GRAY;
         }
 
@@ -41,12 +44,22 @@ public class UIButton extends UIClickable {
     }
 
     @Override
-    public Image getSprite() {
-        return container.getSprite();
+    protected void onFocus(State state) {
+        state.getAudioPlayer().playSound("button.wav");
+    }
+
+    @Override
+    protected void onDrag(State state) {
+
     }
 
     @Override
     protected void onClick(State state) {
         clickAction.execute(state);
+    }
+
+    @Override
+    public Image getSprite() {
+        return container.getSprite();
     }
 }

@@ -5,15 +5,15 @@ import entity.NPC;
 import state.State;
 
 public class Stand extends AIState {
-    private int updateAlive;
+    private int updatesAlive;
 
     @Override
     protected AITransition initializeTransition() {
-        return new AITransition("wander", ((state, currentCharacter) -> updateAlive >= state.getTime().getUpdatesFromSeconds(3)));
+        return new AITransition("wander", ((state, currentCharacter) -> updatesAlive >= state.getTime().getUpdatesFromSeconds(3)));
     }
 
     @Override
     public void update(State state, NPC currentCharacter) {
-        updateAlive++;
+        updatesAlive++;
     }
 }

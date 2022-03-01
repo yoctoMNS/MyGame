@@ -1,35 +1,35 @@
 package entity.humanoid.action;
 
 import controller.NPCController;
-import entity.humanoid.Bubble;
+import entity.Bubble;
 import entity.humanoid.Humanoid;
 import entity.humanoid.effect.Isolated;
 import game.GameLoop;
 import state.State;
 
 public class BlowBubble extends Action {
+
     private int lifeSpanInUpdates;
     private Humanoid target;
+    private Bubble bubble;
 
     public BlowBubble(Humanoid target) {
+        lifeSpanInUpdates = GameLoop.UPDATES_PER_SECOND;
         this.target = target;
-        this.lifeSpanInUpdates = GameLoop.UPDATES_PER_SECOND;
-        this.interruptable = false;
+        interruptable = false;
     }
-
-    private Bubble bubble;
 
     @Override
     public void update(State state, Humanoid humanoid) {
         lifeSpanInUpdates--;
 
-        if (bubble == null) {
+        if(bubble == null) {
             bubbleTarget(state);
         } else {
             bubble.halt();
         }
 
-        if (isDone()) {
+        if(isDone()) {
             target.setRenderOrder(6);
             bubble.setRenderOrder(6);
         }

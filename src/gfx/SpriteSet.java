@@ -1,6 +1,6 @@
 package gfx;
 
-import java.awt.Image;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,9 +21,10 @@ public class SpriteSet {
     }
 
     public Image getOrGetDefault(String name) {
-        if (animationSheets.containsKey(name)) {
+        if(animationSheets.containsKey(name)) {
             return animationSheets.get(name);
         }
+
         return animationSheets.get("default");
     }
 }

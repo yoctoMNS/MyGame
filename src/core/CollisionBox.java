@@ -1,8 +1,9 @@
 package core;
 
-import java.awt.Rectangle;
+import java.awt.*;
 
 public class CollisionBox {
+
     private Rectangle bounds;
 
     public CollisionBox(Rectangle bounds) {
@@ -12,16 +13,16 @@ public class CollisionBox {
     public static CollisionBox of(Position position, Size size) {
         return new CollisionBox(
                 new Rectangle(
-                        position.getX(),
-                        position.getY(),
-                        size.w,
-                        size.h
+                        position.intX(),
+                        position.intY(),
+                        size.getWidth(),
+                        size.getHeight()
                 )
         );
     }
 
     public boolean collidesWith(CollisionBox other) {
-        return bounds.intersects(other.bounds);
+        return bounds.intersects(other.getBounds());
     }
 
     public Rectangle getBounds() {

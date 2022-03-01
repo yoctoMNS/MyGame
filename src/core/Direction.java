@@ -16,18 +16,18 @@ public enum Direction {
         this.animationRow = animationRow;
     }
 
-    public static  Direction fromMotion(Motion motion) {
-        double x = motion.getVector().x;
-        double y = motion.getVector().y;
+    public static Direction fromMotion(Motion motion) {
+        double x = motion.getVector().getX();
+        double y = motion.getVector().getY();
 
-        if (x == 0 && y >  0) return S;
-        if (x <  0 && y == 0) return W;
-        if (x == 0 && y <  0) return N;
-        if (x >  0 && y == 0) return E;
-        if (x <  0 && y >  0) return SW;
-        if (x <  0 && y <  0) return NW;
-        if (x >  0 && y <  0) return NE;
-        if (x >  0 && y >  0) return SE;
+        if(x == 0 && y > 0) return S;
+        if(x < 0 && y == 0) return W;
+        if(x == 0 && y < 0) return N;
+        if(x > 0 && y == 0) return E;
+        if(x < 0 && y > 0) return SW;
+        if(x < 0 && y < 0) return NW;
+        if(x > 0 && y < 0) return NE;
+        if(x > 0 && y > 0) return SE;
 
         return S;
     }

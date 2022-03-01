@@ -4,6 +4,7 @@ import entity.humanoid.Humanoid;
 import state.State;
 
 public abstract class Effect {
+
     private int lifeSpanInUpdates;
 
     public Effect(int lifeSpanInUpdates) {

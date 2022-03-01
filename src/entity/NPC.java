@@ -12,9 +12,8 @@ public class NPC extends Humanoid {
 
     public NPC(EntityController entityController, SpriteLibrary spriteLibrary) {
         super(entityController, spriteLibrary);
-
-        this.animationManager = new AnimationManager(spriteLibrary.getSpriteSet("dave"));
-        this.aiManager = new AIManager();
+        animationManager = new AnimationManager(spriteLibrary.getSpriteSet("dave"));
+        aiManager = new AIManager();
     }
 
     @Override
@@ -25,7 +24,7 @@ public class NPC extends Humanoid {
 
     @Override
     protected void handleCollision(GameObject other) {
-        if (other instanceof Player) {
+        if(other instanceof Player) {
             motion.stop(willCollideX(other), willCollideY(other));
         }
     }

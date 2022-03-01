@@ -4,26 +4,27 @@ import core.Position;
 import core.Size;
 import state.State;
 
-import java.awt.Image;
+import java.awt.*;
 
 public abstract class UIComponent {
+
     protected Position relativePosition;
     protected Position absolutePosition;
     protected Size size;
     protected Spacing margin;
     protected Spacing padding;
+
     protected UIContainer parent;
 
     public UIComponent() {
-        this.relativePosition = new Position(0, 0);
-        this.absolutePosition = new Position(0, 0);
-        this.size = new Size(1, 1);
-        this.margin = new Spacing(0);
-        this.padding = new Spacing(0);
+        relativePosition = new Position(0, 0);
+        absolutePosition = new Position(0, 0);
+        size = new Size(1, 1);
+        margin = new Spacing(0);
+        padding = new Spacing(0);
     }
 
     public abstract Image getSprite();
-
     public abstract void update(State state);
 
     public Position getRelativePosition() {

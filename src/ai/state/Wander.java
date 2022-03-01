@@ -14,7 +14,7 @@ public class Wander extends AIState {
 
     public Wander() {
         super();
-        this.targets = new ArrayList<>();
+        targets = new ArrayList<>();
     }
 
     @Override
@@ -24,14 +24,14 @@ public class Wander extends AIState {
 
     @Override
     public void update(State state, NPC currentCharacter) {
-        if (targets.isEmpty()) {
+        if(targets.isEmpty()) {
             targets.add(state.getRandomPosition());
         }
 
-        NPCController controller = (NPCController)currentCharacter.getController();
+        NPCController controller = (NPCController) currentCharacter.getEntityController();
         controller.moveToTarget(targets.get(0), currentCharacter.getPosition());
 
-        if (arrived(currentCharacter)) {
+        if(arrived(currentCharacter)) {
             controller.stop();
         }
     }

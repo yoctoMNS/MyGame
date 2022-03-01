@@ -1,14 +1,15 @@
 package game.settings;
 
 public class GameSettings {
+
     private boolean debugMode;
     private double gameSpeedMultiplier;
     private AudioSettings audioSettings;
 
     public GameSettings(boolean debugMode) {
         this.debugMode = debugMode;
-        this.gameSpeedMultiplier = 1;
-        this.audioSettings = new AudioSettings();
+        gameSpeedMultiplier = 1;
+        audioSettings = new AudioSettings();
     }
 
     public boolean isDebugMode() {

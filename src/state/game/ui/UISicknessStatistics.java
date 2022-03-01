@@ -3,19 +3,15 @@ package state.game.ui;
 import core.Size;
 import state.game.GameState;
 import state.State;
-import ui.HorizontalContainer;
-import ui.Spacing;
-import ui.UIContainer;
-import ui.UIText;
-import ui.VerticalContainer;
+import ui.*;
 
 public class UISicknessStatistics extends HorizontalContainer {
+
     private UIText numberOfSick;
     private UIText numberOfHealthy;
 
     public UISicknessStatistics(Size windowSize) {
         super(windowSize);
-
         this.numberOfSick = new UIText("");
         this.numberOfHealthy = new UIText("");
 
@@ -36,11 +32,9 @@ public class UISicknessStatistics extends HorizontalContainer {
     @Override
     public void update(State state) {
         super.update(state);
-
-        if (state instanceof GameState) {
-            GameState gameState = (GameState)state;
-
-            numberOfSick.setText(String.format("%d(%d)", gameState.getNumberOfSick(), gameState.getNumberOfIsolated()));
+        if(state instanceof GameState) {
+            GameState gameState = (GameState) state;
+            numberOfSick.setText(String.format("%d (%d)", gameState.getNumberOfSick(), gameState.getNumberOfIsolated()));
             numberOfHealthy.setText(String.valueOf(gameState.getNumberOfHealthy()));
         }
 

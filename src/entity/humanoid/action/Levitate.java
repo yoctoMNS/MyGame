@@ -4,9 +4,14 @@ import entity.humanoid.Humanoid;
 import state.State;
 
 public class Levitate extends Action {
+
+    public Levitate() {
+        interruptable = false;
+    }
+
     @Override
     public void update(State state, Humanoid humanoid) {
-        this.interruptable = false;
+
     }
 
     @Override

@@ -7,13 +7,13 @@ import ui.HorizontalContainer;
 import ui.UIText;
 
 public class UIGameTime extends HorizontalContainer {
+
     private UIText gameTime;
 
     public UIGameTime(Size windowSize) {
         super(windowSize);
-
         this.alignment = new Alignment(Alignment.Position.CENTER, Alignment.Position.START);
-        this.gameTime = new UIText("00:00");
+        this.gameTime = new UIText("");
         addUIComponent(gameTime);
     }
 
