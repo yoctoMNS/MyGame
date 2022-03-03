@@ -14,7 +14,6 @@ public class UIRenderSettings extends VerticalContainer {
         super(windowSize);
 
         setAlignment(new Alignment(Alignment.Position.END, Alignment.Position.START));
-        setCenterChildren(true);
 
         addUIComponent(new UIMinimap(gameMap));
         addUIComponent(new UIText("RENDER SETTINGS"));
