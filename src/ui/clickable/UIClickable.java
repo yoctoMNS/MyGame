@@ -5,7 +5,7 @@ import input.mouse.MouseConsumer;
 import state.State;
 import ui.UIComponent;
 
-import java.awt.*;
+import java.awt.Rectangle;
 
 public abstract class UIClickable extends UIComponent implements MouseConsumer {
 
@@ -20,9 +20,9 @@ public abstract class UIClickable extends UIComponent implements MouseConsumer {
         hasFocus = getBounds().contains(mousePosition.intX(), mousePosition.intY());
         isPressed = hasFocus && state.getInput().isMousePressed();
 
-        if(hasFocus && state.getInput().isMouseClicked()) {
-            onClick(state);
-        }
+//        if(hasFocus && state.getInput().isMouseClicked()) {
+//            onClick(state);
+//        }
 
         if(hasFocus && state.getInput().isMousePressed()) {
             onDrag(state);
