@@ -14,6 +14,7 @@ import java.util.List;
 
 public abstract class UIContainer extends UIComponent {
 
+    protected boolean centerChildren;
     protected Color backgroundColor;
 
     protected Alignment alignment;
@@ -26,6 +27,7 @@ public abstract class UIContainer extends UIComponent {
     public UIContainer(Size windowSize) {
         super();
         this.windowSize = windowSize;
+        centerChildren = false;
         alignment = new Alignment(Alignment.Position.START, Alignment.Position.START);
         backgroundColor = new Color(0, 0, 0, 0);
         margin = new Spacing(5);
@@ -114,5 +116,9 @@ public abstract class UIContainer extends UIComponent {
 
     public void setFixedSize(Size fixedSize) {
         this.fixedSize = fixedSize;
+    }
+
+    public void setCenterChildren(boolean centerChildren) {
+        this.centerChildren = centerChildren;
     }
 }

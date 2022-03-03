@@ -2,10 +2,11 @@ package display;
 
 import core.Position;
 import game.Game;
-import state.State;
 import map.GameMap;
+import state.State;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 
 public class Renderer {
     public void render(State state, Graphics graphics) {
@@ -26,7 +27,7 @@ public class Renderer {
     private void renderGameObjects(State state, Graphics graphics) {
         Camera camera = state.getCamera();
         state.getGameObjects().stream()
-                .filter(gameObject -> camera.isInView(gameObject))
+                .filter(camera::isInView)
                 .forEach(gameObject -> graphics.drawImage(
                         gameObject.getSprite(),
                         gameObject.getRenderPosition(camera).intX(),
@@ -50,6 +51,16 @@ public class Renderer {
                         y * Game.SPRITE_SIZE - camera.getPosition().intY(),
                         null
                 );
+
+                if (state.getGameSettings().getRenderSettings().getShouldRenderGrid().getValue()) {
+                    graphics.setColor(Color.GRAY);
+                    graphics.drawRect(
+                            x * Game.SPRITE_SIZE - camera.getPosition().intX(),
+                            y * Game.SPRITE_SIZE - camera.getPosition().intY(),
+                            Game.SPRITE_SIZE,
+                            Game.SPRITE_SIZE
+                    );
+                }
             }
         }
     }
