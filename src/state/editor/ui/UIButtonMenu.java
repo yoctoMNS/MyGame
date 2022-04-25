@@ -1,6 +1,8 @@
 package state.editor.ui;
 
 import core.Size;
+import gfx.SpriteLibrary;
+import map.MapIO;
 import state.menu.MenuState;
 import ui.HorizontalContainer;
 import ui.clickable.UIButton;
@@ -18,5 +20,7 @@ public class UIButtonMenu extends HorizontalContainer {
                         )
                 ))
         );
+        addUIComponent(new UIButton("SAVE", state -> MapIO.save(state.getGameMap())));
+        addUIComponent(new UIButton("LOAD", state -> state.loadGameMap()));
     }
 }
