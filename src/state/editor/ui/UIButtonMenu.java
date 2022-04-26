@@ -1,8 +1,7 @@
 package state.editor.ui;
 
 import core.Size;
-import gfx.SpriteLibrary;
-import map.MapIO;
+import io.MapIO;
 import state.menu.MenuState;
 import ui.HorizontalContainer;
 import ui.clickable.UIButton;

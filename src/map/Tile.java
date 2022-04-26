@@ -2,6 +2,7 @@ package map;
 
 import game.Game;
 import gfx.SpriteLibrary;
+import io.Persistable;
 import ui.UIImage;
 
 import java.awt.*;
@@ -9,12 +10,15 @@ import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.Optional;
 
-public class Tile implements Serializable {
+public class Tile implements Persistable {
 
     private transient Image image;
     private transient Image sprite;
     private int tileIndex;
     private String tileName;
+
+    public Tile() {
+    }
 
     public Tile(SpriteLibrary spriteLibrary) {
         this(spriteLibrary, "grass");
@@ -70,5 +74,24 @@ public class Tile implements Serializable {
     public void reloadGraphics(SpriteLibrary spriteLibrary) {
         image = spriteLibrary.getImage(tileName);
         generateSprite();
+    }
+
+    @Override
+    public String serialize() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(this.getClass().getSimpleName());
+        stringBuilder.append(DELIMITER);
+        stringBuilder.append(tileName);
+        stringBuilder.append(DELIMITER);
+        stringBuilder.append(tileIndex);
+        return stringBuilder.toString();
+    }
+
+    @Override
+    public void applySerializedData(String serializedData) {
+        String[] tokens = serializedData.split(DELIMITER);
+
+        tileName = tokens[1];
+        tileIndex = Integer.parseInt(tokens[2]);
     }
 }
