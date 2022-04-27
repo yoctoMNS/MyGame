@@ -6,7 +6,7 @@ import input.Input;
 import map.GameMap;
 import map.Tile;
 import state.State;
-import state.editor.ui.TilePlacer;
+import input.mouse.action.TilePlacer;
 import state.editor.ui.UIButtonMenu;
 import state.editor.ui.UIRenderSettings;
 import state.editor.ui.UITileMenu;
@@ -22,6 +22,6 @@ public class EditorState extends State {
 
         uiContainers.add(new UIButtonMenu(windowSize));
         uiContainers.add(new UIRenderSettings(windowSize, gameSettings.getRenderSettings(), gameMap));
-        uiContainers.add(new UITileMenu(windowSize, spriteLibrary));
+        uiContainers.add(new UITileMenu(windowSize, spriteLibrary, gameSettings.getEditorSettings()));
     }
 }

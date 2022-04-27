@@ -6,12 +6,14 @@ public class GameSettings {
     private double gameSpeedMultiplier;
     private final AudioSettings audioSettings;
     private final RenderSettings renderSettings;
+    private final EditorSettings editorSettings;
 
     public GameSettings(boolean debugMode) {
         this.debugMode = debugMode;
         gameSpeedMultiplier = 1;
         audioSettings = new AudioSettings();
         renderSettings = new RenderSettings();
+        editorSettings = new EditorSettings();
     }
 
     public boolean isDebugMode() {
@@ -40,5 +42,9 @@ public class GameSettings {
 
     public RenderSettings getRenderSettings() {
         return renderSettings;
+    }
+
+    public EditorSettings getEditorSettings() {
+        return editorSettings;
     }
 }

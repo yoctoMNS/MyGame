@@ -3,7 +3,7 @@ package ui.clickable;
 import gfx.ImageUtils;
 import map.Tile;
 import state.State;
-import state.editor.ui.TilePlacer;
+import input.mouse.action.TilePlacer;
 import ui.UIImage;
 
 import java.awt.AlphaComposite;
