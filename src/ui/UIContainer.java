@@ -121,4 +121,8 @@ public abstract class UIContainer extends UIComponent {
     public void setCenterChildren(boolean centerChildren) {
         this.centerChildren = centerChildren;
     }
+
+    protected void clear() {
+        children.clear();
+    }
 }
